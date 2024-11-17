@@ -83,7 +83,7 @@ Plateau deplacementBas(Plateau plateau) {
  *  @param direction la direction
  *  @return le plateau déplacé dans la direction
  **/
-Plateau déplacement(Plateau plateau, int direction) {
+Plateau deplacement(Plateau plateau, int direction) {
     throw runtime_error("A faire");
 }
 
@@ -108,4 +108,28 @@ bool estTermine(Plateau plateau) {
  **/
 bool estGagnant(Plateau plateau) {
     throw runtime_error("A faire");
+}
+
+/**teste les fonctions de ce fichier pour vérifier qu'elles fonctionnent correctement
+ **/
+void tests() {
+    //tireDeuxOuQuatre
+    //Lance 100 fois la fonction et vérifie que chaque résultat possible apparaît au moins une fois
+    //Vérifie aussi que la fonction renvoie toujours 2 ou 4
+    bool tireDeux, tireQuatre;
+    tireDeux = false;
+    tireQuatre = false;
+    int tirage = 0;
+    for (int i = 0; i < 100; i++) {
+        tirage = tireDeuxOuQuatre();
+        if (tirage == 2) {
+            tireDeux = true;
+        } else if (tirage == 4) {
+            tireQuatre = true;
+        } else {
+            cout << "tireDeuxOuQuatre() a renvoyé " << tirage << endl;
+            throw range_error("Erreur dans les tests : tireDeuxOuQuatre() doit toujours renvoyer 2 ou 4");}
+    }
+    if (not tireDeux) {throw runtime_error("Erreur dans les tests : tireDeuxOuQuatre() doit pouvoir renvoyer 2");}
+    if (not tireQuatre) {throw runtime_error("Erreur dans les tests : tireDeuxOuQuatre() doit pouvoir renvoyer 4");}
 }
