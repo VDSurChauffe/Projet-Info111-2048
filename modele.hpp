@@ -10,6 +10,7 @@ using Plateau = vector<vector<int>>;
 
 /** génère aléatoirement un 2 ou un 4 avec des probabilités respectives de 9/10 et 1/10
  *  @return 2 ou 4
+ *  fonction écrite par Victor Daviau
  **/
 int tireDeuxOuQuatre() {
     int randint = rand() % 10;
@@ -33,6 +34,7 @@ Plateau plateauVide() {
 
 /** génère deux nombres sur des cases aléatoires d'un plateau vide
  *  @return un plateau en début de jeu
+ *  Fonction écrite par Victor Daviau
  **/
 Plateau plateauInitial() {
     Plateau jeu = plateauVide();
@@ -116,6 +118,7 @@ void tests() {
     //tireDeuxOuQuatre
     //Lance 100 fois la fonction et vérifie que chaque résultat possible apparaît au moins une fois
     //Vérifie aussi que la fonction renvoie toujours 2 ou 4
+    //Assez fiable mais peut planter par malchance (avec une probabilité autour de 3e-5)
     bool tireDeux, tireQuatre;
     tireDeux = false;
     tireQuatre = false;
