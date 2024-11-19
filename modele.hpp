@@ -37,10 +37,8 @@ Plateau plateauVide() {
 Plateau plateauInitial() {
     Plateau jeu = plateauVide();
     int case1 = rand() % 16;
-    int case2 = case1;
-    while (case2 == case1) {
-        case2 = rand() % 16;
-    }
+    int case2 = rand() % 15;
+    if (case2 >= case1) {case2++;}
     jeu[case1 / 4][case1 % 4] = tireDeuxOuQuatre();
     jeu[case2 / 4][case2 % 4] = tireDeuxOuQuatre();
     return jeu;

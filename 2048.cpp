@@ -1,6 +1,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <ctime>
 #include "modele.hpp"
 
 using namespace std;
@@ -8,6 +9,8 @@ using namespace std;
 // using Plateau = vector<vector<int>> ;
 
 int main() {
+    srand(time(NULL));
+    
     //Teste automatiquement les fonctions de modele.hpp
     // tests();
     
@@ -18,7 +21,7 @@ int main() {
     cin >> mode_interaction;
 
     while (mode_interaction != "1" and mode_interaction != "2" and mode_interaction != "3") {
-        cout << "Mode d'interaction saisi incorrect ! Veuillez reéssayer" << endl;
+        cout << "Mode d'interaction saisi incorrect ! Veuillez reéssayer :" << endl;
         cin >> mode_interaction;
     }
     // A compléter
