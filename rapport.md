@@ -19,14 +19,16 @@
 ### Niveau 0
 - Jeu fonctionnel et complet : *à terminer*
 - Fonctions spécifiées et documentées : *à terminer, mais N/A pour l'instant*
-- Fonctions testées : *à terminer*
-- Une fonction qui effectue des tests automatiques sur modele.hpp
+- Fonctions testées : *à terminer, mais N/A pour l'instant*
+Quelques fonctions auxiliaires :
+  - une fonction qui teste automatiquement les fonctions de modele.hpp
+  - une fonction qui calcule le log2 d'une valeur
 
 ### Niveau 1
-- Utiliser ncurses : *à faire*
-- Couleurs : *à faire*
-- Mouvement avec les flèches seules : *à faire*
-- Ecraser l'affichage à chaque mouvement : *à faire*
+- Utiliser ncurses : non fait car remplacé par une interface graphique
+- Couleurs : contenues dans l'interface graphique
+- Mouvement avec les flèches seules : fait avec l'UI graphique, et le jeu permet de choisir le mode de contrôles (ZQSD, WASD, ou flèches)
+- Ecraser l'affichage à chaque mouvement : idem
 - Calcul de score par une fonction : *à faire*
 
 ### Niveau 2
@@ -39,8 +41,8 @@
       - *à décider*
       - *variante à choisir*
       - *à faire*
-- avoir une interface graphique : *à décider, à faire*
-- en faire une application pour téléphone : *à décider, à faire, **probablement pas***
+- avoir une interface graphique : *à faire*
+- en faire une application pour téléphone : non traité
 
 
 ## Démonstration
