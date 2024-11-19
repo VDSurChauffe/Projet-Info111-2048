@@ -53,14 +53,22 @@ Plateau plateauInitial() {
  *  @return le plateau une fois déplacé vers la gauche
  **/
 Plateau deplacementGauche(Plateau plateau) {
-    Plateau nouvellePlateau;
-    nouvellePlateau = Plateau (4);
-    nouvellePlateau = plateauVide();
+    Plateau nouvellePlateau = plateauVide();
 
     for (int i = 0; i < 4; i++) {
-        nouvellePlateau[i][0] = plateau[i][0];
-        nouvellePlateau[i][1] = plateau[i][2];
-        nouvellePlateau[i][2] = plateau[i][3];
+        if (plateau[i][0] == plateau[i][1]) {
+            nouvellePlateau[i][0] = plateau[i][0] * 2;
+        } else {
+            nouvellePlateau[i][0] = plateau[i][0]; 
+        }
+
+        for (int j = 1; j < 3; j++ ) {
+            if (plateau[i][j] == plateau[i][j+1]) {
+                nouvellePlateau[i][j] = plateau[i][j] * 2;
+            } else {
+                nouvellePlateau[i][j] = plateau[i][j+1]; 
+            }
+        }
     }
 
     return nouvellePlateau;
@@ -76,9 +84,19 @@ Plateau deplacementDroite(Plateau plateau) {
     nouvellePlateau = plateauVide();
 
     for (int i = 0; i < 4; i++) {
-        nouvellePlateau[i][3] = plateau[i][3];
-        nouvellePlateau[i][2] = plateau[i][1];
-        nouvellePlateau[i][1] = plateau[i][0];
+        if (plateau[i][2] == plateau[i][3]) {
+            nouvellePlateau[i][3] = plateau[i][2] * 2;
+        } else {
+            nouvellePlateau[i][3] = plateau[i][2]; 
+        }
+
+        for (int j = 2; j >= 1; j-- ) {
+            if (plateau[i][j-1] == plateau[i][j]) {
+                nouvellePlateau[i][j] = plateau[i][j] * 2;
+            } else {
+                nouvellePlateau[i][j] = plateau[i][j-1]; 
+            }
+        }
     }
 
     return nouvellePlateau;
@@ -94,9 +112,19 @@ Plateau deplacementHaut(Plateau plateau) {
     nouvellePlateau = plateauVide();
 
     for (int i = 0; i < 4; i++) {
-        nouvellePlateau[0][i] = plateau[0][i];
-        nouvellePlateau[1][i] = plateau[2][i];
-        nouvellePlateau[2][i] = plateau[3][i];
+        if (plateau[0][i] == plateau[1][i]) {
+            nouvellePlateau[0][i] = plateau[0][i] * 2;
+        } else {
+            nouvellePlateau[0][i] = plateau[0][i]; 
+        }
+
+        for (int j = 1; j < 3; j++ ) {
+            if (plateau[j][i] == plateau[j+1][i]) {
+                nouvellePlateau[j][i] = plateau[j][i] * 2;
+            } else {
+                nouvellePlateau[j][i] = plateau[j+1][i]; 
+            }
+        }
     }
 
     return nouvellePlateau;
@@ -112,9 +140,19 @@ Plateau deplacementBas(Plateau plateau) {
     nouvellePlateau = plateauVide();
 
     for (int i = 0; i < 4; i++) {
-        nouvellePlateau[3][i] = plateau[3][i];
-        nouvellePlateau[2][i] = plateau[1][i];
-        nouvellePlateau[1][i] = plateau[0][i];
+        if (plateau[2][i] == plateau[3][i]) {
+            nouvellePlateau[3][i] = plateau[2][i] * 2;
+        } else {
+            nouvellePlateau[3][i] = plateau[2][i]; 
+        }
+
+        for (int j = 2; j >= 1; j-- ) {
+            if (plateau[j-1][i] == plateau[j][i]) {
+                nouvellePlateau[j][i] = plateau[j][i] * 2;
+            } else {
+                nouvellePlateau[j][i] = plateau[j-1][i]; 
+            }
+        }
     }
 
     return nouvellePlateau;
@@ -166,9 +204,9 @@ void dessine(Plateau p) {
                 cout << " ";
             }
         }
-        cout << '|';
+        cout << '|' << endl;
+        cout << "-----------------------------" << endl;
     }
-    cout << "-----------------------------" << endl;
 }
 
 /** permet de savoir si une partie est terminée
