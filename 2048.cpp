@@ -1,6 +1,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <ctime>
 #include "modele.hpp"
 
 using namespace std;
@@ -8,6 +9,8 @@ using namespace std;
 // using Plateau = vector<vector<int>> ;
 
 int main() {
+    srand(time(NULL));
+    
     //Teste automatiquement les fonctions de modele.hpp
     // tests();
     
