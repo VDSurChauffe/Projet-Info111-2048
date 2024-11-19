@@ -1,16 +1,15 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
+#include <iostream>
 
 using namespace std;
-
 using Plateau = vector<vector<int>>;
 
 // Vous pouvez ajouter des fonctions à ce fichier si besoin est
 
 /** génère aléatoirement un 2 ou un 4 avec des probabilités respectives de 9/10 et 1/10
  *  @return 2 ou 4
- *  fonction écrite par Victor Daviau
  **/
 int tireDeuxOuQuatre() {
     int randint = rand() % 10;
@@ -34,7 +33,6 @@ Plateau plateauVide() {
 
 /** génère deux nombres sur des cases aléatoires d'un plateau vide
  *  @return un plateau en début de jeu
- *  Fonction écrite par Victor Daviau
  **/
 Plateau plateauInitial() {
     Plateau jeu = plateauVide();
@@ -112,9 +110,24 @@ bool estGagnant(Plateau plateau) {
     throw runtime_error("A faire");
 }
 
+/**donne la puissance de 2 correspondant à une valeur de case 
+ * @param n un entier puissance de 2
+ * @return son log base 2
+ **/
+int logCase(int n) {
+    int l = 0;
+    while (n != 1) {
+        l++;
+        n /= 2;
+    }
+    return l;
+}
+
 /**teste les fonctions de ce fichier pour vérifier qu'elles fonctionnent correctement
  **/
 void tests() {
+    cout << "Lancement des tests automatiques. Si tout fonctionne, rien ne devrait s'afficher ici." << endl;
+
     //tireDeuxOuQuatre
     //Lance 100 fois la fonction et vérifie que chaque résultat possible apparaît au moins une fois
     //Vérifie aussi que la fonction renvoie toujours 2 ou 4
@@ -135,4 +148,30 @@ void tests() {
     }
     if (not tireDeux) {throw runtime_error("Erreur dans les tests : tireDeuxOuQuatre() doit pouvoir renvoyer 2");}
     if (not tireQuatre) {throw runtime_error("Erreur dans les tests : tireDeuxOuQuatre() doit pouvoir renvoyer 4");}
+
+    //logCase
+    int n = 2;
+    for (int i = 1; i <= 11; i++) {
+        if (logCase(n) != i) {
+            throw logic_error("Erreur dans les tests : logCase(" + to_string(n) + ") devrait renvoyer " + to_string(i) + " mais a renvoyé " + to_string(logCase(n)));
+        }
+        n *= 2;
+    }
+
+    //plateauVide
+    if (plateauVide() != Plateau({{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}})) {
+        throw logic_error("Erreur dans les tests : plateauVide() doit renvoyer un plateau vide 4x4");
+    }
+
+    //plateauInitial
+    Plateau testPlateau = plateauInitial();
+    int total = 0;
+    if (testPlateau.size() != 4) {throw range_error("Erreur dans les tests : plateauInitial() doit renvoyer un tableau de 4 lignes");}
+    for (vector<int> li: testPlateau) {
+        if (li.size() != 4) {throw range_error("Erreur dans les tests : plateauInitial() doit renvoyer un tableau de 4 colonnes");}
+        for (int n: li) {total += n;}
+    }
+    if (not (total == 4 or total == 6 or total == 8)) {
+        throw range_error("plateauInitial() devrait renvoyer un tableau de départ valide mais a renvoyé des valeurs invalides, avec une somme de " + to_string(total));
+    }
 }
