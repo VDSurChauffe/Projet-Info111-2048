@@ -53,7 +53,17 @@ Plateau plateauInitial() {
  *  @return le plateau une fois déplacé vers la gauche
  **/
 Plateau deplacementGauche(Plateau plateau) {
-    throw runtime_error("A faire");
+    Plateau nouvellePlateau;
+    nouvellePlateau = Plateau (4);
+    nouvellePlateau = plateauVide();
+
+    for (int i = 0; i < 4; i++) {
+        nouvellePlateau[i][0] = plateau[i][0];
+        nouvellePlateau[i][1] = plateau[i][2];
+        nouvellePlateau[i][2] = plateau[i][3];
+    }
+
+    return nouvellePlateau;
 }
 
 /** déplace les tuiles d'un plateau vers la droite et les combine si possible
@@ -61,7 +71,17 @@ Plateau deplacementGauche(Plateau plateau) {
  *  @return le plateau une fois déplacé vers la droite
  **/
 Plateau deplacementDroite(Plateau plateau) {
-    throw runtime_error("A faire");
+    Plateau nouvellePlateau;
+    nouvellePlateau = Plateau (4);
+    nouvellePlateau = plateauVide();
+
+    for (int i = 0; i < 4; i++) {
+        nouvellePlateau[i][3] = plateau[i][3];
+        nouvellePlateau[i][2] = plateau[i][1];
+        nouvellePlateau[i][1] = plateau[i][0];
+    }
+
+    return nouvellePlateau;
 }
 
 /** déplace les tuiles d'un plateau vers le haut et les combine si possible
@@ -69,7 +89,17 @@ Plateau deplacementDroite(Plateau plateau) {
  *  @return le plateau une fois déplacé vers le haut
  **/
 Plateau deplacementHaut(Plateau plateau) {
-    throw runtime_error("A faire");
+    Plateau nouvellePlateau;
+    nouvellePlateau = Plateau (4);
+    nouvellePlateau = plateauVide();
+
+    for (int i = 0; i < 4; i++) {
+        nouvellePlateau[0][i] = plateau[0][i];
+        nouvellePlateau[1][i] = plateau[2][i];
+        nouvellePlateau[2][i] = plateau[3][i];
+    }
+
+    return nouvellePlateau;
 }
 
 /** déplace les tuiles d'un plateau vers le bas et les combine si possible
@@ -77,16 +107,45 @@ Plateau deplacementHaut(Plateau plateau) {
  *  @return le plateau une fois déplacé vers le bas
  **/
 Plateau deplacementBas(Plateau plateau) {
-    throw runtime_error("A faire");
+    Plateau nouvellePlateau;
+    nouvellePlateau = Plateau (4);
+    nouvellePlateau = plateauVide();
+
+    for (int i = 0; i < 4; i++) {
+        nouvellePlateau[3][i] = plateau[3][i];
+        nouvellePlateau[2][i] = plateau[1][i];
+        nouvellePlateau[1][i] = plateau[0][i];
+    }
+
+    return nouvellePlateau;
 }
 
 /** déplace les tuiles d'un plateau dans la direction donnée et génère une nouvelle tuile si le déplacement est valide
+ *  directions : 1 -> Haut, 2 -> Droite, 3 -> Bas, 4 -> Gauche (au sense de l'horloge)
  *  @param plateau le plateau
  *  @param direction la direction
  *  @return le plateau déplacé dans la direction
  **/
 Plateau deplacement(Plateau plateau, int direction) {
-    throw runtime_error("A faire");
+    if (direction == 1) {
+        plateau = deplacementHaut(plateau);
+    } else if (direction == 2) {
+        plateau = deplacementDroite(plateau);
+    } else if (direction == 3) {
+        plateau = deplacementBas(plateau);
+    } else {
+        plateau = deplacementGauche(plateau);
+    }
+
+    int caseRandom = rand() % 16;
+
+    while (plateau[caseRandom / 4][caseRandom % 4] != 0) {
+        caseRandom = rand() % 16;
+    }
+
+    plateau[caseRandom / 4][caseRandom % 4] = tireDeuxOuQuatre();
+
+    return plateau;
 }
 
 /** affiche un plateau
