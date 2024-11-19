@@ -18,7 +18,7 @@ int main() {
     cin >> mode_interaction;
 
     while (mode_interaction != "1" and mode_interaction != "2" and mode_interaction != "3") {
-        cout << "Mode d'interaction saisi incorrect ! Veuillez reéssayer" << endl;
+        cout << "Mode d'interaction saisi incorrect ! Veuillez reéssayer :" << endl;
         cin >> mode_interaction;
     }
     // A compléter
