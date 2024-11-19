@@ -1,16 +1,15 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
+#include <iostream>
 
 using namespace std;
-
 using Plateau = vector<vector<int>>;
 
 // Vous pouvez ajouter des fonctions à ce fichier si besoin est
 
 /** génère aléatoirement un 2 ou un 4 avec des probabilités respectives de 9/10 et 1/10
  *  @return 2 ou 4
- *  fonction écrite par Victor Daviau
  **/
 int tireDeuxOuQuatre() {
     int randint = rand() % 10;
@@ -34,15 +33,12 @@ Plateau plateauVide() {
 
 /** génère deux nombres sur des cases aléatoires d'un plateau vide
  *  @return un plateau en début de jeu
- *  Fonction écrite par Victor Daviau
  **/
 Plateau plateauInitial() {
     Plateau jeu = plateauVide();
     int case1 = rand() % 16;
-    int case2 = case1;
-    while (case2 == case1) {
-        case2 = rand() % 16;
-    }
+    int case2 = rand() % 15;
+    if (case2 >= case1) {case2++;}
     jeu[case1 / 4][case1 % 4] = tireDeuxOuQuatre();
     jeu[case2 / 4][case2 % 4] = tireDeuxOuQuatre();
     return jeu;
