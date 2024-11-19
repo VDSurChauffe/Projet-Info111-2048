@@ -151,8 +151,24 @@ Plateau deplacement(Plateau plateau, int direction) {
 /** affiche un plateau
  * @param p le plateau
  **/
-string dessine(Plateau p) {
-    throw runtime_error("A faire");
+void dessine(Plateau p) {
+    cout << "-----------------------------" << endl;
+    for (int ligne = 0;  ligne < 4; ligne++) {
+        for (int col = 0; col < 4; col++) {
+            cout << '| ' << p[ligne][col];
+            if (p[ligne][col] <= 8) {
+                cout << "    ";
+            } else if (p[ligne][col] <= 64 ) {
+                cout << "   ";
+            } else if (p[ligne][col] <= 512) {
+                cout << "  ";
+            } else {
+                cout << " ";
+            }
+        }
+        cout << '|';
+    }
+    cout << "-----------------------------" << endl;
 }
 
 /** permet de savoir si une partie est terminée
