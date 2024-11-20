@@ -37,6 +37,7 @@ Plateau plateauInitial() {
     int case1 = rand() % 16;
     int case2 = rand() % 15;
     if (case2 >= case1) {case2++;}
+    // on prend case2 entre 0 et 14 et on incrémente si c'est >= case1 pour simuler le fait de prendre case2 dans [[0; 15]]\{case1}
     jeu[case1 / 4][case1 % 4] = tireDeuxOuQuatre();
     jeu[case2 / 4][case2 % 4] = tireDeuxOuQuatre();
     return jeu;
