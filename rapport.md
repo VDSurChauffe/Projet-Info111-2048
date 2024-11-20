@@ -21,7 +21,7 @@
 - Fonctions spécifiées et documentées : *à terminer, mais N/A pour l'instant*
 - Fonctions testées : *à terminer, mais N/A pour l'instant*
 Quelques fonctions auxiliaires :
-  - une fonction qui teste automatiquement les fonctions de modele.hpp
+  - une fonction qui teste automatiquement les fonctions de ``modele.hpp``
   - une fonction qui calcule le log2 d'une valeur
 
 ### Niveau 1
@@ -29,11 +29,11 @@ Quelques fonctions auxiliaires :
 - Couleurs : contenues dans l'interface graphique
 - Mouvement avec les flèches seules : fait avec l'UI graphique, et le jeu permet de choisir le mode de contrôles (ZQSD, WASD, ou flèches)
 - Ecraser l'affichage à chaque mouvement : idem
-- Calcul de score par une fonction : *à faire*
+- Calcul de score par une fonction : fait, cependant la fonction requiert un argument suppémentaire (une variable dans ``main()``)pour tenir compte du fait que les 4 apparus naturellement rapportent moins
 
 ### Niveau 2
 - Utiliser un Makefile : *à faire*
-- Utiliser un gestionnaire de version : fait avec GitHub *(éventuellement rendre le repo public et ajouter un lien)*
+- Utiliser un gestionnaire de version : fait avec [un repo GitHub](https://github.com/VDSurChauffe/Projet-Info111-2048/)
 
 ### Niveau 3
 - créer une IA : *à décider, à faire*
@@ -55,6 +55,8 @@ Quelques fonctions auxiliaires :
 ## Organisation du travail
 
 *Décrivez en quelques phrases comment vous vous êtes organisés pour travailler sur le projet: nombre d'heures consacrées au projet, répartition du travail dans le binôme, moyens mis en œuvre pour collaborer, etc. Si vous avez bénéficié d'aide (en dehors de celle de vos enseigants), précisez le.*
+
+Nous avons utilisé GitHub pour échanger nos progrès sur le jeu, avec un repo GitHub géré par Victor. ***[A compléter plus tard]***
 
 
 
