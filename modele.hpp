@@ -6,8 +6,6 @@
 using namespace std;
 using Plateau = vector<vector<int>>;
 
-// Vous pouvez ajouter des fonctions à ce fichier si besoin est
-
 /** génère aléatoirement un 2 ou un 4 avec des probabilités respectives de 9/10 et 1/10
  *  @return 2 ou 4
  **/
@@ -125,6 +123,29 @@ int logCase(int n) {
     return l;
 }
 
+/** donne le score correspondant à un plateau
+ * @param jeu un plateau correspondant à l'état du jeu
+ * @param nat le nombre de 4 apparus naturellement
+ * @return le score du plateau
+ **/
+int scorePlateau(Plateau jeu, int nat) {
+    //2 ne donne rien
+    //4 résulte d'une fusion donc donne 4
+    //8 provient de deux 4 + une fusion à 8 => 16 points
+    //16 : deux 8 + 16 donc 48 points
+    //en général une case n donne n(logCase(n)-1) points
+    //on soustrait 4 pour chaque fois qu'une case 4 est apparue naturellement car ces 4 ne donnent pas de points d'eux-mêmes
+    int total = 0;
+    for (vector<int> li: jeu) {
+        for (int n: li) {
+            if (n >= 4) {
+                total += n * (logCase(n)-1);
+            }
+        }
+    }
+    return total - 4 * nat;
+}
+
 /**teste les fonctions de ce fichier pour vérifier qu'elles fonctionnent correctement
  **/
 void tests() {
@@ -165,6 +186,14 @@ void tests() {
         throw logic_error("Erreur dans les tests : plateauVide() doit renvoyer un plateau vide 4x4");
     }
 
+    //scorePlateau
+    Plateau jeuTest = plateauVide();
+    jeuTest[1][2] = 8;
+    if (scorePlateau(jeuTest, 1) != 12) {throw logic_error("Erreur dans les tests : scorePlateau() ne renvoie pas le bon score pour un plateau presque vide");}
+    jeuTest[1][2] = 2;
+    jeuTest[2][2] = 2;
+    if (scorePlateau(jeuTest, 0) != 0) {throw logic_error("Erreur dans les tests : scorePlateau() devrait renvoyer 0 pour un tableau ne contenant que des 2");}
+    
     //plateauInitial
     Plateau testPlateau = plateauInitial();
     int total = 0;
