@@ -105,9 +105,13 @@ bool estTermine(Plateau plateau) {
  * @return true si le plateau contient un 2048, false sinon
  **/
 bool estGagnant(Plateau plateau) {
-    throw runtime_error("A faire");
+    for (vector<int> li: plateau) {
+        for (int n: li) {
+            if (n == 2048) {return true;}
+        }
+    }
+    return false;
 }
-
 /**donne la puissance de 2 correspondant à une valeur de case 
  * @param n un entier puissance de 2
  * @return son log base 2
@@ -171,5 +175,16 @@ void tests() {
     }
     if (not (total == 4 or total == 6 or total == 8)) {
         throw range_error("plateauInitial() devrait renvoyer un tableau de départ valide mais a renvoyé des valeurs invalides, avec une somme de " + to_string(total));
+    }
+
+    //Fonctions de déplacement : à faire
+
+    //estTermine : à faire
+
+    //estGagnant
+    Plateau vide = plateauVide();
+    Plateau gagnant = {{0, 2, 4, 8}, {4, 16, 256, 2048}, {1024, 512, 128, 64}, {2, 2, 8, 32}};
+    if (estGagnant(vide) or not estGagnant(gagnant)) {
+        throw runtime_error("Erreur dans les tests : estGagnant() doit identifier correctement les plateaux gagnants");
     }
 }
