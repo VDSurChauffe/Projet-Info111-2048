@@ -49,25 +49,57 @@ Plateau plateauInitial() {
  *  @return le plateau une fois déplacé vers la gauche
  **/
 Plateau deplacementGauche(Plateau plateau) {
-    Plateau nouvellePlateau = plateauVide();
-
+    // initialiser nouveauPlateau
+    Plateau nouveauPlateau;
+    nouveauPlateau = Plateau (4);
     for (int i = 0; i < 4; i++) {
-        if (plateau[i][0] == plateau[i][1]) {
-            nouvellePlateau[i][0] = plateau[i][0] * 2;
-        } else {
-            nouvellePlateau[i][0] = plateau[i][0]; 
+        nouveauPlateau[i] = vector<int> (0);
+    }
+
+    // deplacer
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (plateau[i][j] != 0) {
+                nouveauPlateau[i].push_back(plateau[i][j]);
+            }
         }
 
-        for (int j = 1; j < 3; j++ ) {
-            if (plateau[i][j] == plateau[i][j+1]) {
-                nouvellePlateau[i][j] = plateau[i][j] * 2;
-            } else {
-                nouvellePlateau[i][j] = plateau[i][j+1]; 
+        while (nouveauPlateau[i].size() != 4) {
+            nouveauPlateau[i].push_back(0);
+        }
+    }
+
+    // fusionner
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (nouveauPlateau[i][j] == nouveauPlateau[i][j+1]) {
+                nouveauPlateau[i][j] = nouveauPlateau[i][j] * 2;
+                nouveauPlateau[i][j+1] = 0;
             }
         }
     }
 
-    return nouvellePlateau;
+    // initialiser nouveauPlateau2
+    Plateau nouveauPlateau2;
+    nouveauPlateau2 = Plateau (4);
+    for (int i = 0; i < 4; i++) {
+        nouveauPlateau2[i] = vector<int> (0);
+    }
+
+    // deplacer
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (nouveauPlateau[i][j] != 0) {
+                nouveauPlateau2[i].push_back(nouveauPlateau[i][j]);
+            }
+        }
+
+        while (nouveauPlateau2[i].size() != 4) {
+            nouveauPlateau2[i].push_back(0);
+        }
+    }
+
+    return nouveauPlateau2;
 }
 
 /** déplace les tuiles d'un plateau vers la droite et les combine si possible
