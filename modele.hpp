@@ -6,6 +6,7 @@
 using namespace std;
 using Plateau = vector<vector<int>>;
 
+
 // Vous pouvez ajouter des fonctions à ce fichier si besoin
 
 /** fonction inverseVector (auxiliaire)
@@ -89,6 +90,7 @@ Plateau plateauInitial() {
     int case1 = rand() % 16;
     int case2 = rand() % 15;
     if (case2 >= case1) {case2++;}
+    // on prend case2 entre 0 et 14 et on incrémente si c'est >= case1 pour simuler le fait de prendre case2 dans [[0; 15]]\{case1}
     jeu[case1 / 4][case1 % 4] = tireDeuxOuQuatre();
     jeu[case2 / 4][case2 % 4] = tireDeuxOuQuatre();
     return jeu;
@@ -298,9 +300,13 @@ bool estTermine(Plateau plateau) {
  * @return true si le plateau contient un 2048, false sinon
  **/
 bool estGagnant(Plateau plateau) {
-    throw runtime_error("A faire");
+    for (vector<int> li: plateau) {
+        for (int n: li) {
+            if (n == 2048) {return true;}
+        }
+    }
+    return false;
 }
-
 /**donne la puissance de 2 correspondant à une valeur de case 
  * @param n un entier puissance de 2
  * @return son log base 2
@@ -312,6 +318,29 @@ int logCase(int n) {
         n /= 2;
     }
     return l;
+}
+
+/** donne le score correspondant à un plateau
+ * @param jeu un plateau correspondant à l'état du jeu
+ * @param nat le nombre de 4 apparus naturellement
+ * @return le score du plateau
+ **/
+int scorePlateau(Plateau jeu, int nat) {
+    //2 ne donne rien
+    //4 résulte d'une fusion donc donne 4
+    //8 provient de deux 4 + une fusion à 8 => 16 points
+    //16 : deux 8 + 16 donc 48 points
+    //en général une case n donne n(logCase(n)-1) points
+    //on soustrait 4 pour chaque fois qu'une case 4 est apparue naturellement car ces 4 ne donnent pas de points d'eux-mêmes
+    int total = 0;
+    for (vector<int> li: jeu) {
+        for (int n: li) {
+            if (n >= 4) {
+                total += n * (logCase(n)-1);
+            }
+        }
+    }
+    return total - 4 * nat;
 }
 
 /**teste les fonctions de ce fichier pour vérifier qu'elles fonctionnent correctement
@@ -354,6 +383,14 @@ void tests() {
         throw logic_error("Erreur dans les tests : plateauVide() doit renvoyer un plateau vide 4x4");
     }
 
+    //scorePlateau
+    Plateau jeuTest = plateauVide();
+    jeuTest[1][2] = 8;
+    if (scorePlateau(jeuTest, 1) != 12) {throw logic_error("Erreur dans les tests : scorePlateau() ne renvoie pas le bon score pour un plateau presque vide");}
+    jeuTest[1][2] = 2;
+    jeuTest[2][2] = 2;
+    if (scorePlateau(jeuTest, 0) != 0) {throw logic_error("Erreur dans les tests : scorePlateau() devrait renvoyer 0 pour un tableau ne contenant que des 2");}
+    
     //plateauInitial
     Plateau testPlateau = plateauInitial();
     int total = 0;
@@ -364,5 +401,16 @@ void tests() {
     }
     if (not (total == 4 or total == 6 or total == 8)) {
         throw range_error("plateauInitial() devrait renvoyer un tableau de départ valide mais a renvoyé des valeurs invalides, avec une somme de " + to_string(total));
+    }
+
+    //Fonctions de déplacement : à faire
+
+    //estTermine : à faire
+
+    //estGagnant
+    Plateau vide = plateauVide();
+    Plateau gagnant = {{0, 2, 4, 8}, {4, 16, 256, 2048}, {1024, 512, 128, 64}, {2, 2, 8, 32}};
+    if (estGagnant(vide) or not estGagnant(gagnant)) {
+        throw runtime_error("Erreur dans les tests : estGagnant() doit identifier correctement les plateaux gagnants");
     }
 }
