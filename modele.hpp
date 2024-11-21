@@ -6,6 +6,59 @@
 using namespace std;
 using Plateau = vector<vector<int>>;
 
+
+// Vous pouvez ajouter des fonctions à ce fichier si besoin
+
+/** fonction inverseVector (auxiliaire)
+ *  @param inp un vecteur<int>
+ *  @return inp mais avec l'ordre inverse
+ */
+vector<int> inverseVector(vector<int> inp) {
+    vector<int> retVect;
+    retVect = vector<int> (0);
+    for (int i = inp.size() - 1; i >= 0; i--) {
+        retVect.push_back( inp[i] );
+    }
+
+    return retVect;
+}
+
+/** fonction tourneGauche (auxiliaire)
+ *  @param p un plateau<int>
+ *  @return p tournee 90 degrees vers la gauche
+ */
+Plateau tourneGauche(Plateau p) {
+    int lignes = p.size();
+    int cols = p[0].size();
+    vector<vector<int>> rotated(cols, vector<int>(lignes));
+
+    for (int i = 0; i < lignes; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            rotated[cols - j - 1][i] = p[i][j];
+        }
+    }
+
+    return rotated;
+}
+
+/** fonction tourneDroite (auxiliaire)
+ *  @param p un plateau<int>
+ *  @return p tournee 90 degrees vers la droite
+ */
+Plateau tourneDroite(Plateau p) {
+    int lignes = p.size();
+    int cols = p[0].size();
+    vector<vector<int>> rotated(cols, vector<int>(lignes));
+
+    for (int i = 0; i < lignes; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            rotated[j][lignes - i - 1] = p[i][j];
+        }
+    }
+
+    return rotated;
+}
+
 /** génère aléatoirement un 2 ou un 4 avec des probabilités respectives de 9/10 et 1/10
  *  @return 2 ou 4
  **/
@@ -48,7 +101,57 @@ Plateau plateauInitial() {
  *  @return le plateau une fois déplacé vers la gauche
  **/
 Plateau deplacementGauche(Plateau plateau) {
-    throw runtime_error("A faire");
+    // initialiser nouveauPlateau
+    Plateau nouveauPlateau;
+    nouveauPlateau = Plateau (4);
+    for (int i = 0; i < 4; i++) {
+        nouveauPlateau[i] = vector<int> (0);
+    }
+
+    // deplacer
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (plateau[i][j] != 0) {
+                nouveauPlateau[i].push_back(plateau[i][j]);
+            }
+        }
+
+        while (nouveauPlateau[i].size() != 4) {
+            nouveauPlateau[i].push_back(0);
+        }
+    }
+
+    // fusionner
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (nouveauPlateau[i][j] == nouveauPlateau[i][j+1]) {
+                nouveauPlateau[i][j] = nouveauPlateau[i][j] * 2;
+                nouveauPlateau[i][j+1] = 0;
+            }
+        }
+    }
+
+    // initialiser nouveauPlateau2
+    Plateau nouveauPlateau2;
+    nouveauPlateau2 = Plateau (4);
+    for (int i = 0; i < 4; i++) {
+        nouveauPlateau2[i] = vector<int> (0);
+    }
+
+    // deplacer
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (nouveauPlateau[i][j] != 0) {
+                nouveauPlateau2[i].push_back(nouveauPlateau[i][j]);
+            }
+        }
+
+        while (nouveauPlateau2[i].size() != 4) {
+            nouveauPlateau2[i].push_back(0);
+        }
+    }
+
+    return nouveauPlateau2;
 }
 
 /** déplace les tuiles d'un plateau vers la droite et les combine si possible
@@ -56,7 +159,61 @@ Plateau deplacementGauche(Plateau plateau) {
  *  @return le plateau une fois déplacé vers la droite
  **/
 Plateau deplacementDroite(Plateau plateau) {
-    throw runtime_error("A faire");
+    // initialiser nouveauPlateau
+    Plateau nouveauPlateau;
+    nouveauPlateau = Plateau (4);
+    for (int i = 0; i < 4; i++) {
+        nouveauPlateau[i] = vector<int> (0);
+    }
+
+    // deplacer
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (plateau[i][j] != 0) {
+                nouveauPlateau[i].push_back(plateau[i][j]);
+            }
+        }
+
+        nouveauPlateau[i] = inverseVector(nouveauPlateau[i]);
+        while (nouveauPlateau[i].size() != 4) {
+            nouveauPlateau[i].push_back(0);
+        }
+        nouveauPlateau[i] = inverseVector(nouveauPlateau[i]);
+    }
+
+    // fusionner
+    for (int i = 3; i >= 0; i--) {
+        for (int j = 3; j > 0; j--) {
+            if (nouveauPlateau[i][j] == nouveauPlateau[i][j-1]) {
+                nouveauPlateau[i][j] = nouveauPlateau[i][j] * 2;
+                nouveauPlateau[i][j-1] = 0;
+            }
+        }
+    }
+
+    // initialiser nouveauPlateau2
+    Plateau nouveauPlateau2;
+    nouveauPlateau2 = Plateau (4);
+    for (int i = 0; i < 4; i++) {
+        nouveauPlateau2[i] = vector<int> (0);
+    }
+
+    // deplacer
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (nouveauPlateau[i][j] != 0) {
+                nouveauPlateau2[i].push_back(nouveauPlateau[i][j]);
+            }
+        }
+
+        nouveauPlateau2[i] = inverseVector(nouveauPlateau2[i]);
+        while (nouveauPlateau2[i].size() != 4) {
+            nouveauPlateau2[i].push_back(0);
+        }
+        nouveauPlateau2[i] = inverseVector(nouveauPlateau2[i]);
+    }
+
+    return nouveauPlateau2;
 }
 
 /** déplace les tuiles d'un plateau vers le haut et les combine si possible
@@ -64,7 +221,9 @@ Plateau deplacementDroite(Plateau plateau) {
  *  @return le plateau une fois déplacé vers le haut
  **/
 Plateau deplacementHaut(Plateau plateau) {
-    throw runtime_error("A faire");
+    Plateau plateauTournee = tourneGauche(plateau);
+    plateauTournee = deplacementGauche(plateauTournee);
+    return tourneDroite(plateauTournee);
 }
 
 /** déplace les tuiles d'un plateau vers le bas et les combine si possible
@@ -72,23 +231,60 @@ Plateau deplacementHaut(Plateau plateau) {
  *  @return le plateau une fois déplacé vers le bas
  **/
 Plateau deplacementBas(Plateau plateau) {
-    throw runtime_error("A faire");
+    Plateau plateauTournee = tourneGauche(plateau);
+    plateauTournee = deplacementDroite(plateauTournee);
+    return tourneDroite(plateauTournee);
 }
 
 /** déplace les tuiles d'un plateau dans la direction donnée et génère une nouvelle tuile si le déplacement est valide
+ *  directions : 1 -> Haut, 2 -> Droite, 3 -> Bas, 4 -> Gauche (au sense de l'horloge)
  *  @param plateau le plateau
  *  @param direction la direction
  *  @return le plateau déplacé dans la direction
  **/
 Plateau deplacement(Plateau plateau, int direction) {
-    throw runtime_error("A faire");
+    if (direction == 1) {
+        plateau = deplacementHaut(plateau);
+    } else if (direction == 2) {
+        plateau = deplacementDroite(plateau);
+    } else if (direction == 3) {
+        plateau = deplacementBas(plateau);
+    } else {
+        plateau = deplacementGauche(plateau);
+    }
+
+    int caseRandom = rand() % 16;
+
+    while (plateau[caseRandom / 4][caseRandom % 4] != 0) {
+        caseRandom = rand() % 16;
+    }
+
+    plateau[caseRandom / 4][caseRandom % 4] = tireDeuxOuQuatre();
+
+    return plateau;
 }
 
 /** affiche un plateau
  * @param p le plateau
  **/
-string dessine(Plateau p) {
-    throw runtime_error("A faire");
+void dessine(Plateau p) {
+    cout << "-----------------------------" << endl;
+    for (int ligne = 0;  ligne < 4; ligne++) {
+        for (int col = 0; col < 4; col++) {
+            cout << '| ' << p[ligne][col];
+            if (p[ligne][col] <= 8) {
+                cout << "    ";
+            } else if (p[ligne][col] <= 64 ) {
+                cout << "   ";
+            } else if (p[ligne][col] <= 512) {
+                cout << "  ";
+            } else {
+                cout << " ";
+            }
+        }
+        cout << '|' << endl;
+        cout << "-----------------------------" << endl;
+    }
 }
 
 /** permet de savoir si une partie est terminée

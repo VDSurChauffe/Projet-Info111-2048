@@ -6,13 +6,13 @@
 
 using namespace std;
 
-// using Plateau = vector<vector<int>> ;
+using Plateau = vector<vector<int>> ;
 
 int main() {
     srand(time(NULL));
     
     //Teste automatiquement les fonctions de modele.hpp
-    // tests();
+    tests();
     
     cout << "Veuillez choisir le mode d'interaction avec le jeu en tapant son numéro" << endl << "1. WASD" << endl << "2. ZQSD" << endl << "3. Flèches" << endl;
 
