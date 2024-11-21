@@ -6,7 +6,21 @@
 using namespace std;
 using Plateau = vector<vector<int>>;
 
-// Vous pouvez ajouter des fonctions à ce fichier si besoin est
+// Vous pouvez ajouter des fonctions à ce fichier si besoin
+
+/** fonction inverseVector (auxiliaire)
+ *  @param inp un vecteur<int>
+ *  @return inp mais avec l'ordre inverse
+ */
+vector<int> inverseVector(vector<int> inp) {
+    vector<int> retVect;
+    retVect = vector<int> (0);
+    for (int i = inp.size() - 1; i >= 0; i--) {
+        retVect.push_back( inp[i] );
+    }
+
+    return retVect;
+}
 
 /** génère aléatoirement un 2 ou un 4 avec des probabilités respectives de 9/10 et 1/10
  *  @return 2 ou 4
@@ -107,27 +121,61 @@ Plateau deplacementGauche(Plateau plateau) {
  *  @return le plateau une fois déplacé vers la droite
  **/
 Plateau deplacementDroite(Plateau plateau) {
-    Plateau nouvellePlateau;
-    nouvellePlateau = Plateau (4);
-    nouvellePlateau = plateauVide();
-
+    // initialiser nouveauPlateau
+    Plateau nouveauPlateau;
+    nouveauPlateau = Plateau (4);
     for (int i = 0; i < 4; i++) {
-        if (plateau[i][2] == plateau[i][3]) {
-            nouvellePlateau[i][3] = plateau[i][2] * 2;
-        } else {
-            nouvellePlateau[i][3] = plateau[i][2]; 
+        nouveauPlateau[i] = vector<int> (0);
+    }
+
+    // deplacer
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (plateau[i][j] != 0) {
+                nouveauPlateau[i].push_back(plateau[i][j]);
+            }
         }
 
-        for (int j = 2; j >= 1; j-- ) {
-            if (plateau[i][j-1] == plateau[i][j]) {
-                nouvellePlateau[i][j] = plateau[i][j] * 2;
-            } else {
-                nouvellePlateau[i][j] = plateau[i][j-1]; 
+        nouveauPlateau[i] = inverseVector(nouveauPlateau[i]);
+        while (nouveauPlateau[i].size() != 4) {
+            nouveauPlateau[i].push_back(0);
+        }
+        nouveauPlateau[i] = inverseVector(nouveauPlateau[i]);
+    }
+
+    // fusionner
+    for (int i = 3; i >= 0; i--) {
+        for (int j = 3; j > 0; j--) {
+            if (nouveauPlateau[i][j] == nouveauPlateau[i][j-1]) {
+                nouveauPlateau[i][j] = nouveauPlateau[i][j] * 2;
+                nouveauPlateau[i][j-1] = 0;
             }
         }
     }
 
-    return nouvellePlateau;
+    // initialiser nouveauPlateau2
+    Plateau nouveauPlateau2;
+    nouveauPlateau2 = Plateau (4);
+    for (int i = 0; i < 4; i++) {
+        nouveauPlateau2[i] = vector<int> (0);
+    }
+
+    // deplacer
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (nouveauPlateau[i][j] != 0) {
+                nouveauPlateau2[i].push_back(nouveauPlateau[i][j]);
+            }
+        }
+
+        nouveauPlateau2[i] = inverseVector(nouveauPlateau2[i]);
+        while (nouveauPlateau2[i].size() != 4) {
+            nouveauPlateau2[i].push_back(0);
+        }
+        nouveauPlateau2[i] = inverseVector(nouveauPlateau2[i]);
+    }
+
+    return nouveauPlateau2;
 }
 
 /** déplace les tuiles d'un plateau vers le haut et les combine si possible
