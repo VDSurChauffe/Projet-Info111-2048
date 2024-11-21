@@ -8,21 +8,16 @@
 
 ## Résumé du travail effectué
 
-*Pour chaque niveau du sujet, décrivez brièvement l'avancement de votre projet.*
-
-*Exemples de réponses : «non traitée», «réalisée, documentée, testée», «réalisée, sauf 2.3», «réalisée mais non testée», «réalisée sauf ... pour lequel notre programme ne compile pas» ou «pour lequel les tests de la fonction D ne passent pas».*
-
 *Pour les questions «Aller plus loin» plus ouvertes, décrivez plus en détail ce que vous avez choisi de réaliser. Précisez les difficultés rencontrées, les choix d'implantation que vous avez fait, etc.*
 
 *En plus du rapport, la documentation de chaque fonction dans le code devra préciser son auteur et votre degré de confiance dans l'implantation, ainsi que les éléments factuels motivant cette confiance: présence de tests, bogues et limitations connus, etc.*
 
 ### Niveau 0
 - Jeu fonctionnel et complet : *à terminer*
-- Fonctions spécifiées et documentées : *à terminer, mais N/A pour l'instant*
-- Fonctions testées : *à terminer, mais N/A pour l'instant*
-Quelques fonctions auxiliaires :
-  - une fonction qui teste automatiquement les fonctions de ``modele.hpp``
-  - une fonction qui calcule le log2 d'une valeur
+
+Nous avons écrit quelques fonctions en plus de celles déjà présentes dans le sujet, pour permettre d'effectuer des tests automatiques et faciliter les calculs dans certaines fonctionnalités.
+
+Toutes les fonctions sont documentées et ont été testées, presque toutes sont également testées automatiquement par ``tests()``, et certaines sont commentées pour clarifier leur fonctionnement.
 
 ### Niveau 1
 - Utiliser ncurses : non fait car remplacé par une interface graphique
@@ -56,10 +51,13 @@ Quelques fonctions auxiliaires :
 
 *Décrivez en quelques phrases comment vous vous êtes organisés pour travailler sur le projet: nombre d'heures consacrées au projet, répartition du travail dans le binôme, moyens mis en œuvre pour collaborer, etc. Si vous avez bénéficié d'aide (en dehors de celle de vos enseigants), précisez le.*
 
-Nous avons utilisé GitHub pour échanger nos progrès sur le jeu, avec un repo GitHub géré par Victor. ***[A compléter plus tard]***
+Nous avons utilisé GitHub pour échanger nos progrès sur le jeu, avec un repo GitHub géré par Victor.
 
-
+Nous avons chacun travaillé (principalement en collaborant en temps réel) *environ 10 heures **actuellement.***
 
 ## Prise de recul
 
 *Décrivez en quelques phrases les difficultés rencontrées, ce que vous avez appris à l'occasion du projet, le cas échéant comment vous vous y prendriez si vous aviez à le refaire.*
+
+Nous avons principalement rencontré des problèmes concernant le déplacement du plateau de jeu car il s'agissait de l'algorithme le plus complexe à mettre en oeuvre. ***[A compléter plus tard]***
+ ***[A compléter plus tard]***
