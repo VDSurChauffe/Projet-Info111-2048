@@ -22,6 +22,42 @@ vector<int> inverseVector(vector<int> inp) {
     return retVect;
 }
 
+/** fonction tourneGauche (auxiliaire)
+ *  @param p un plateau<int>
+ *  @return p tournee 90 degrees vers la gauche
+ */
+Plateau tourneGauche(Plateau p) {
+    int lignes = p.size();
+    int cols = p[0].size();
+    vector<vector<int>> rotated(cols, vector<int>(lignes));
+
+    for (int i = 0; i < lignes; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            rotated[cols - j - 1][i] = p[i][j];
+        }
+    }
+
+    return rotated;
+}
+
+/** fonction tourneDroite (auxiliaire)
+ *  @param p un plateau<int>
+ *  @return p tournee 90 degrees vers la droite
+ */
+Plateau tourneDroite(Plateau p) {
+    int lignes = p.size();
+    int cols = p[0].size();
+    vector<vector<int>> rotated(cols, vector<int>(lignes));
+
+    for (int i = 0; i < lignes; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            rotated[j][lignes - i - 1] = p[i][j];
+        }
+    }
+
+    return rotated;
+}
+
 /** génère aléatoirement un 2 ou un 4 avec des probabilités respectives de 9/10 et 1/10
  *  @return 2 ou 4
  **/
