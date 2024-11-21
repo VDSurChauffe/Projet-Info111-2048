@@ -229,27 +229,9 @@ Plateau deplacementHaut(Plateau plateau) {
  *  @return le plateau une fois déplacé vers le bas
  **/
 Plateau deplacementBas(Plateau plateau) {
-    Plateau nouvellePlateau;
-    nouvellePlateau = Plateau (4);
-    nouvellePlateau = plateauVide();
-
-    for (int i = 0; i < 4; i++) {
-        if (plateau[2][i] == plateau[3][i]) {
-            nouvellePlateau[3][i] = plateau[2][i] * 2;
-        } else {
-            nouvellePlateau[3][i] = plateau[2][i]; 
-        }
-
-        for (int j = 2; j >= 1; j-- ) {
-            if (plateau[j-1][i] == plateau[j][i]) {
-                nouvellePlateau[j][i] = plateau[j][i] * 2;
-            } else {
-                nouvellePlateau[j][i] = plateau[j-1][i]; 
-            }
-        }
-    }
-
-    return nouvellePlateau;
+    Plateau plateauTournee = tourneGauche(plateau);
+    plateauTournee = deplacementDroite(plateauTournee);
+    return tourneDroite(plateauTournee);
 }
 
 /** déplace les tuiles d'un plateau dans la direction donnée et génère une nouvelle tuile si le déplacement est valide
