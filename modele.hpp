@@ -7,7 +7,8 @@ using namespace std;
 using Plateau = vector<vector<int>>;
 
 
-// Vous pouvez ajouter des fonctions à ce fichier si besoin
+// Toutes les fonctions associées aux déplacements ont été écrites par Parsa
+// La plupart des autres fonctions, ainsi que tests(), ont été écrites et maintenues par Victor
 
 /** fonction inverseVector (auxiliaire)
  *  @param inp un vecteur<int>
