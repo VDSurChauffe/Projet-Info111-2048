@@ -31,15 +31,96 @@ int main() {
         cin >> mode_interaction;
     }
 
-    if (mode_interaction == "1" or mode_interaction == "2") {
+    string commande;
+    int direction;
 
-        if (mode_interaction == "1") {
-            cout << "W -> Déplacer vers le haut" << endl << "A -> Déplacer vers la gauche" << endl << "S -> Déplacer vers la droite" << endl << "D -> Déplacer vers le bas" << endl << endl;
-        } else {
-            cout << "Z -> Déplacer vers le haut" << endl << "Q -> Déplacer vers la gauche" << endl << "S -> Déplacer vers la droite" << endl << "D -> Déplacer vers le bas" << endl << endl;
+    if (mode_interaction == "1") {
+        cout << "W -> Déplacer vers le haut" << endl << "A -> Déplacer vers la gauche" << endl << "S -> Déplacer vers la droite" << endl << "D -> Déplacer vers le bas" << endl << endl;
+
+        Plateau plateauDuJeu = plateauInitial();
+
+        while (true) {
+            dessine(plateauDuJeu);
+            cout << "Entrez une commande" << endl;
+
+            cin >> commande;
+
+            if (commande == "w" or commande == "W") {
+                direction = 1;
+                plateauDuJeu = deplacement(plateauDuJeu, direction);
+            } else if (commande == "a" or commande == "A") {
+                direction = 4;
+                plateauDuJeu = deplacement(plateauDuJeu, direction);
+            } else if (commande == "s" or commande == "S") {
+                direction = 3;
+                plateauDuJeu = deplacement(plateauDuJeu, direction);
+            } else if (commande == "d" or commande == "D") {
+                direction = 2;
+                plateauDuJeu = deplacement(plateauDuJeu, direction);
+            } else {
+                cout << "commande saisi inconnue" << endl;
+            }
+
+            if (estTermine(plateauDuJeu) == true) {
+                cout << "Partie terminée ! ";
+                if (estGagnant(plateauDuJeu) == true) {
+                    cout << "Vous avez gagné !" << endl << endl << "Sortie du programme. Au revoir !";
+                } else {
+                    cout << "Vous avez perdu !" << endl << endl << "Sortie du programme. Au revoir !";
+                }
+                break;
+            } else {
+                if (estGagnant(plateauDuJeu) == true) {
+                    cout << "vous avez gagné ! Continuez pour atteindre un meilleur score possible" << endl;
+                }
+                plateauDuJeu = ajouteCase(plateauDuJeu);
+            }
+        }
+    } else if (mode_interaction == "2") {
+        cout << "Z -> Déplacer vers le haut" << endl << "Q -> Déplacer vers la gauche" << endl << "S -> Déplacer vers la droite" << endl << "D -> Déplacer vers le bas" << endl << endl;
+        
+        Plateau plateauDuJeu = plateauInitial();
+
+        while (true) {
+            dessine(plateauDuJeu);
+            cout << "Entrez une commande" << endl;
+
+            cin >> commande;
+
+            if (commande == "z" or commande == "Z") {
+                direction = 1;
+                plateauDuJeu = deplacement(plateauDuJeu, direction);
+            } else if (commande == "q" or commande == "Q") {
+                direction = 4;
+                plateauDuJeu = deplacement(plateauDuJeu, direction);
+            } else if (commande == "s" or commande == "S") {
+                direction = 3;
+                plateauDuJeu = deplacement(plateauDuJeu, direction);
+            } else if (commande == "d" or commande == "D") {
+                direction = 2;
+                plateauDuJeu = deplacement(plateauDuJeu, direction);
+            } else {
+                cout << "commande saisi inconnue" << endl;
+            }
+
+            if (estTermine(plateauDuJeu) == true) {
+                cout << "Partie terminée ! ";
+                if (estGagnant(plateauDuJeu) == true) {
+                    cout << "Vous avez gagné !" << endl << endl << "Sortie du programme. Au revoir !";
+                } else {
+                    cout << "Vous avez perdu !" << endl << endl << "Sortie du programme. Au revoir !";
+                }
+                break;
+            } else {
+                if (estGagnant(plateauDuJeu) == true) {
+                    cout << "vous avez gagné ! Continuez pour atteindre un meilleur score possible" << endl;
+                }
+                plateauDuJeu = ajouteCase(plateauDuJeu);
+            }
         }
     } else {
         cout << "Flèche Haut -> Déplacer vers le haut" << endl << "Flèche Gauche -> Déplacer vers la gauche" << endl << "Flèche Droite -> Déplacer vers la droite" << endl << "Flèche Bas -> Déplacer vers le bas" << endl << endl;
+        cout << "Ce mode de jeu sera bientôt disponible!";
     }
 
     return 0;

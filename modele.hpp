@@ -289,13 +289,13 @@ void dessine(Plateau p) {
             }
         }
         cout << '|' << endl;
-        cout << "-----------------------------" << endl;
+        cout << "-----------------------------" << endl << endl;
     }
 }
 
 /** permet de savoir si une partie est terminée
  *  @param plateau un plateau
- *  @return true si le plateau est vide, false sinon
+ *  @return true si le plateau est terminé, false sinon
  **/
 bool estTermine(Plateau p) {
     for (int dir = 1; dir <= 4; dir++) {
