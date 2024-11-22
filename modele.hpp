@@ -25,8 +25,8 @@ vector<int> inverseVector(vector<int> inp) {
 }
 
 /** fonction tourneGauche (auxiliaire)
- *  @param p un plateau<int>
- *  @return p tournee 90 degrees vers la gauche
+ *  @param p un plateau
+ *  @return p tourné de 90 degrés vers la gauche
  */
 Plateau tourneGauche(Plateau p) {
     int lignes = p.size();
@@ -43,8 +43,8 @@ Plateau tourneGauche(Plateau p) {
 }
 
 /** fonction tourneDroite (auxiliaire)
- *  @param p un plateau<int>
- *  @return p tournee 90 degrees vers la droite
+ *  @param p un plateau
+ *  @return p tourné de 90 degrés vers la droite
  */
 Plateau tourneDroite(Plateau p) {
     int lignes = p.size();
@@ -238,9 +238,9 @@ Plateau deplacementBas(Plateau plateau) {
 }
 
 /** déplace les tuiles d'un plateau dans la direction donnée et génère une nouvelle tuile si le déplacement est valide
- *  directions : 1 -> Haut, 2 -> Droite, 3 -> Bas, 4 -> Gauche (au sense de l'horloge)
+ *  directions : 1 -> Haut, 2 -> Droite, 3 -> Bas, 4 -> Gauche (suivant le sens horaire)
  *  @param plateau le plateau
- *  @param direction la direction
+ *  @param direction un entier représentant la direction
  *  @return le plateau déplacé dans la direction
  **/
 Plateau deplacement(Plateau plateau, int direction) {
@@ -254,15 +254,20 @@ Plateau deplacement(Plateau plateau, int direction) {
         plateau = deplacementGauche(plateau);
     }
 
-    int caseRandom = rand() % 16;
+    return plateau;
+}
 
-    while (plateau[caseRandom / 4][caseRandom % 4] != 0) {
+/** ajoute une case à un plateau
+ * @param p un plateau, dont on suppose qu'il a au moins une case vide
+ * @return le plateau après apparition d'une case 2/4
+ */
+Plateau ajouteCase(Plateau p) {
+    int caseRandom = rand() % 16;
+    while (p[caseRandom / 4][caseRandom % 4] != 0) {
         caseRandom = rand() % 16;
     }
-
-    plateau[caseRandom / 4][caseRandom % 4] = tireDeuxOuQuatre();
-
-    return plateau;
+    p[caseRandom / 4][caseRandom % 4] = tireDeuxOuQuatre();
+    return p;
 }
 
 /** affiche un plateau
@@ -272,7 +277,7 @@ void dessine(Plateau p) {
     cout << "-----------------------------" << endl;
     for (int ligne = 0;  ligne < 4; ligne++) {
         for (int col = 0; col < 4; col++) {
-            cout << '| ' << p[ligne][col];
+            cout << "| " << p[ligne][col];
             if (p[ligne][col] <= 8) {
                 cout << "    ";
             } else if (p[ligne][col] <= 64 ) {
@@ -292,8 +297,11 @@ void dessine(Plateau p) {
  *  @param plateau un plateau
  *  @return true si le plateau est vide, false sinon
  **/
-bool estTermine(Plateau plateau) {
-    throw runtime_error("A faire");
+bool estTermine(Plateau p) {
+    for (int dir = 1; dir <= 4; dir++) {
+        if (deplacement(p, dir) != p) {return false;}
+    }
+    return true;
 }
 
 /** permet de savoir si une partie est gagnée
@@ -404,9 +412,48 @@ void tests() {
         throw range_error("plateauInitial() devrait renvoyer un tableau de départ valide mais a renvoyé des valeurs invalides, avec une somme de " + to_string(total));
     }
 
-    //Fonctions de déplacement : à faire
+    //Fonctions de déplacement
+    Plateau plateauTestDeplace = {
+        {0, 2, 2, 4}, 
+        {2, 0, 8, 0}, 
+        {2, 2, 8, 8}, 
+        {4, 0, 8, 2}
+    };
+    string erreur = "Erreur dans les tests : les fonctions de déplacement ne déplacent pas correctement un tableau";
+    Plateau expected = {{4, 4, 0, 0}, {2, 8, 0, 0}, {4, 16, 0, 0}, {4, 8, 2, 0}};
+    if (deplacementGauche(plateauTestDeplace) != expected) {throw runtime_error(erreur);}
+    expected = {{0, 0, 4, 4}, {0, 0, 2, 8}, {0, 0, 4, 16}, {0, 4, 8, 2}};
+    if (deplacementDroite(plateauTestDeplace) != expected) {throw runtime_error(erreur);}
+    expected = {{4, 4, 2, 4}, {4, 0, 16, 8}, {0, 0, 8, 2}, {0, 0, 0, 0}};
+    if (deplacementHaut(plateauTestDeplace) != expected) {throw runtime_error(erreur);}
+    expected = {{0, 0, 0, 0}, {0, 0, 2, 4}, {4, 0, 8, 8}, {4, 4, 16, 2}};
+    if (deplacementBas(plateauTestDeplace) != expected) {throw runtime_error(erreur);}
+    if (
+        deplacement(plateauTestDeplace, 4) != deplacementGauche(plateauTestDeplace)
+        or deplacement(plateauTestDeplace, 3) != deplacementBas(plateauTestDeplace)
+        or deplacement(plateauTestDeplace, 2) != deplacementDroite(plateauTestDeplace)
+        or deplacement(plateauTestDeplace, 1) != deplacementHaut(plateauTestDeplace)
+    ) {throw runtime_error(erreur);}
 
-    //estTermine : à faire
+    //estTermine
+    Plateau nonTermine = {
+        {2, 2, 4, 8},
+        {4, 8, 16, 2},
+        {2, 4, 8, 2},
+        {4, 2, 2, 4},
+    };
+    Plateau termine = {
+        {2, 4, 2, 4},
+        {4, 2, 4, 2},
+        {2, 8, 2, 8},
+        {16, 32, 4, 2},
+    };
+    if (estTermine(nonTermine) or estTermine(plateauTestDeplace)) {
+        throw runtime_error("Erreur dans les tests : estTermine() identifie comme perdu un plateau qui peut encore être déplacé");
+    }
+    if (not estTermine(termine)) {
+        throw runtime_error("Erreur dans les tests : estTermine() n'identifie pas comme perdu un plateau qui ne peut plus être déplacé");
+    }
 
     //estGagnant
     Plateau vide = plateauVide();
@@ -414,4 +461,13 @@ void tests() {
     if (estGagnant(vide) or not estGagnant(gagnant)) {
         throw runtime_error("Erreur dans les tests : estGagnant() doit identifier correctement les plateaux gagnants");
     }
+
+    //dessine & ajouteCase
+    dessine(jeuTest);
+    jeuTest[0][3] = 16;
+    dessine(jeuTest);
+    jeuTest[3][3] = 1024;
+    dessine(jeuTest);
+    dessine(ajouteCase(jeuTest));
+    dessine(ajouteCase(plateauInitial()));
 }
