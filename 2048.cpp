@@ -32,15 +32,10 @@ int main() {
     }
 
     if (mode_interaction == "1" or mode_interaction == "2") {
-        // Ce tableau sera utilisé pour déterminer que souhaite l'utilisateur
-        vector<string> controles;
-        controles = vector<string> (8);
 
         if (mode_interaction == "1") {
-            controles = {"w", "a", "s", "d", "W", "A", "S", "D"};
             cout << "W -> Déplacer vers le haut" << endl << "A -> Déplacer vers la gauche" << endl << "S -> Déplacer vers la droite" << endl << "D -> Déplacer vers le bas" << endl << endl;
         } else {
-            controles = {"z", "q", "s", "d", "Z", "Q", "S", "D"};
             cout << "Z -> Déplacer vers le haut" << endl << "Q -> Déplacer vers la gauche" << endl << "S -> Déplacer vers la droite" << endl << "D -> Déplacer vers le bas" << endl << endl;
         }
     } else {
