@@ -42,6 +42,7 @@ int main() {
         int quatresNaturels = 0;
 
         Plateau plateauDuJeu = plateauInitial();
+        Plateau plateauDEtapeDAvant = plateauVide();
 
 
         while (true) {
@@ -53,18 +54,22 @@ int main() {
 
             if (commande == "w" or commande == "W") {
                 direction = 1;
+                plateauDEtapeDAvant = plateauDuJeu;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
                 score = scorePlateau(plateauDuJeu, quatresNaturels);
             } else if (commande == "a" or commande == "A") {
                 direction = 4;
+                plateauDEtapeDAvant = plateauDuJeu;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
                 score = scorePlateau(plateauDuJeu, quatresNaturels);
             } else if (commande == "s" or commande == "S") {
                 direction = 3;
+                plateauDEtapeDAvant = plateauDuJeu;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
                 score = scorePlateau(plateauDuJeu, quatresNaturels);
             } else if (commande == "d" or commande == "D") {
                 direction = 2;
+                plateauDEtapeDAvant = plateauDuJeu;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
                 score = scorePlateau(plateauDuJeu, quatresNaturels);
             } else {
