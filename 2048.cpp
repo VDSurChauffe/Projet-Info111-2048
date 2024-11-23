@@ -83,7 +83,7 @@ int main() {
                 if (estGagnant(plateauDuJeu) == true) {
                     cout << "vous avez gagné ! Continuez pour atteindre un meilleur score possible" << endl;
                 }
-                plateauDuJeu = ajouteCase(plateauDuJeu);
+                plateauDuJeu = ajouteCase(plateauDuJeu, quatresNaturels);
             }
         }
     } else if (mode_interaction == "2") {
@@ -134,7 +134,7 @@ int main() {
                 if (estGagnant(plateauDuJeu) == true) {
                     cout << "vous avez gagné ! Continuez pour atteindre un meilleur score possible" << endl;
                 }
-                plateauDuJeu = ajouteCase(plateauDuJeu);
+                plateauDuJeu = ajouteCase(plateauDuJeu, quatresNaturels);
             }
         }
     } else {
