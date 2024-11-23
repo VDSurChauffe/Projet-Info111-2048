@@ -37,26 +37,36 @@ int main() {
     if (mode_interaction == "1") {
         cout << "W -> Déplacer vers le haut" << endl << "A -> Déplacer vers la gauche" << endl << "S -> Déplacer vers la droite" << endl << "D -> Déplacer vers le bas" << endl << endl;
 
+        int score = 0;
+
+        int quatresNaturels = 0;
+
         Plateau plateauDuJeu = plateauInitial();
+
 
         while (true) {
             dessine(plateauDuJeu);
-            cout << "Entrez une commande" << endl;
+            cout << "SCORE : " << score << endl;
+            cout << "Entrez une commande : ";
 
             cin >> commande;
 
             if (commande == "w" or commande == "W") {
                 direction = 1;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
+                score += scorePlateau(plateauDuJeu, quatresNaturels);
             } else if (commande == "a" or commande == "A") {
                 direction = 4;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
+                score += scorePlateau(plateauDuJeu, quatresNaturels);
             } else if (commande == "s" or commande == "S") {
                 direction = 3;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
+                score += scorePlateau(plateauDuJeu, quatresNaturels);
             } else if (commande == "d" or commande == "D") {
                 direction = 2;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
+                score += scorePlateau(plateauDuJeu, quatresNaturels);
             } else {
                 cout << "commande saisi inconnue" << endl;
             }
@@ -79,26 +89,35 @@ int main() {
     } else if (mode_interaction == "2") {
         cout << "Z -> Déplacer vers le haut" << endl << "Q -> Déplacer vers la gauche" << endl << "S -> Déplacer vers la droite" << endl << "D -> Déplacer vers le bas" << endl << endl;
         
+        int score = 0;
+
+        int quatresNaturels = 0;
+
         Plateau plateauDuJeu = plateauInitial();
 
         while (true) {
             dessine(plateauDuJeu);
-            cout << "Entrez une commande" << endl;
+            cout << "SCORE : " << score << endl;
+            cout << "Entrez une commande :";
 
             cin >> commande;
 
             if (commande == "z" or commande == "Z") {
                 direction = 1;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
+                score += scorePlateau(plateauDuJeu, quatresNaturels);
             } else if (commande == "q" or commande == "Q") {
                 direction = 4;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
+                score += scorePlateau(plateauDuJeu, quatresNaturels);
             } else if (commande == "s" or commande == "S") {
                 direction = 3;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
+                score += scorePlateau(plateauDuJeu, quatresNaturels);
             } else if (commande == "d" or commande == "D") {
                 direction = 2;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
+                score += scorePlateau(plateauDuJeu, quatresNaturels);
             } else {
                 cout << "commande saisi inconnue" << endl;
             }
