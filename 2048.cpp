@@ -13,7 +13,7 @@ int main() {
     
     //Teste automatiquement les fonctions de modele.hpp
     //Pour ce faire il suffit simplement de décommenter la ligne ci-dessous
-    //tests();
+    tests();
     
     cout << "*****   *****   *   *   *****" << endl;
     cout << "    *   *   *   *   *   *   *" << endl;
@@ -41,6 +41,7 @@ int main() {
     string commande;
     int score = 0;
     int quatresNaturels = 0;
+    int tirage;
     Plateau plateauDuJeu = plateauInitial();
     Plateau plateauPrecedent = plateauVide();
 
@@ -53,31 +54,28 @@ int main() {
 
     while (true) {
         dessine(plateauDuJeu);
+        plateauPrecedent = plateauDuJeu;
 
         cout << "SCORE : " << score << endl;
-        cout << "Entrez une commande : ";            
+        cout << "Entrez une commande : ";
         cin >> commande;
 
         if (
             ((commande == "w" or commande == "W") and mode_interaction == "1")
             or ((commande == "z" or commande == "Z") and mode_interaction == "2")
         ) {
-            plateauPrecedent = plateauDuJeu;
             plateauDuJeu = deplacement(plateauDuJeu, 1);
             score = scorePlateau(plateauDuJeu, quatresNaturels);
         } else if (
             ((commande == "a" or commande == "A") and mode_interaction == "1")
             or ((commande == "q" or commande == "Q") and mode_interaction == "2")
         ) {
-            plateauPrecedent = plateauDuJeu;
             plateauDuJeu = deplacement(plateauDuJeu, 4);
             score = scorePlateau(plateauDuJeu, quatresNaturels);
         } else if (commande == "s" or commande == "S") {
-            plateauPrecedent = plateauDuJeu;
             plateauDuJeu = deplacement(plateauDuJeu, 3);
             score = scorePlateau(plateauDuJeu, quatresNaturels);
         } else if (commande == "d" or commande == "D") {
-            plateauPrecedent = plateauDuJeu;
             plateauDuJeu = deplacement(plateauDuJeu, 2);
             score = scorePlateau(plateauDuJeu, quatresNaturels);
         } else {
@@ -91,12 +89,16 @@ int main() {
             } else {
                 cout << "Vous avez perdu !" << endl << endl << "Sortie du programme. Au revoir !";
             }
-            break;        
+            break;
         } else {
             if (estGagnant(plateauDuJeu)) {
                 cout << "Vous avez gagné ! Continuez pour atteindre le meilleur score possible !" << endl;
             }
-            plateauDuJeu = ajouteCase(plateauDuJeu, quatresNaturels);
+            if (plateauPrecedent != plateauDuJeu) {
+                tirage = tireDeuxOuQuatre();
+                if (tirage == 4) {quatresNaturels++;}
+                plateauDuJeu = ajouteCase(plateauDuJeu, tirage);
+            }
         }
     }
 
