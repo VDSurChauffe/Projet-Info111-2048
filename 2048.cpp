@@ -94,6 +94,7 @@ int main() {
         int quatresNaturels = 0;
 
         Plateau plateauDuJeu = plateauInitial();
+        Plateau plateauDEtapeDAvant = plateauVide();
 
         while (true) {
             dessine(plateauDuJeu);
@@ -104,18 +105,22 @@ int main() {
 
             if (commande == "z" or commande == "Z") {
                 direction = 1;
+                plateauDEtapeDAvant = plateauDuJeu;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
                 score = scorePlateau(plateauDuJeu, quatresNaturels);
             } else if (commande == "q" or commande == "Q") {
                 direction = 4;
+                plateauDEtapeDAvant = plateauDuJeu;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
                 score = scorePlateau(plateauDuJeu, quatresNaturels);
             } else if (commande == "s" or commande == "S") {
                 direction = 3;
+                plateauDEtapeDAvant = plateauDuJeu;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
                 score = scorePlateau(plateauDuJeu, quatresNaturels);
             } else if (commande == "d" or commande == "D") {
                 direction = 2;
+                plateauDEtapeDAvant = plateauDuJeu;
                 plateauDuJeu = deplacement(plateauDuJeu, direction);
                 score = scorePlateau(plateauDuJeu, quatresNaturels);
             } else {
@@ -134,7 +139,9 @@ int main() {
                 if (estGagnant(plateauDuJeu) == true) {
                     cout << "vous avez gagné ! Continuez pour atteindre un meilleur score possible" << endl;
                 }
-                plateauDuJeu = ajouteCase(plateauDuJeu, quatresNaturels);
+                if (plateauDEtapeDAvant != plateauDuJeu) {
+                    plateauDuJeu = ajouteCase(plateauDuJeu, quatresNaturels);
+                }
             }
         }
     } else {
