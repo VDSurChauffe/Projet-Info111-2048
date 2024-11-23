@@ -259,14 +259,18 @@ Plateau deplacement(Plateau plateau, int direction) {
 
 /** ajoute une case à un plateau
  * @param p un plateau, dont on suppose qu'il a au moins une case vide
+ * @param q variable globale qui designe le nombre des 4 apparues naturellement
  * @return le plateau après apparition d'une case 2/4
  */
-Plateau ajouteCase(Plateau p) {
+Plateau ajouteCase(Plateau p, int& q) {
     int caseRandom = rand() % 16;
     while (p[caseRandom / 4][caseRandom % 4] != 0) {
         caseRandom = rand() % 16;
     }
     p[caseRandom / 4][caseRandom % 4] = tireDeuxOuQuatre();
+    if (p[caseRandom / 4][caseRandom % 4] == 4) {
+        q++;
+    }
     return p;
 }
 
@@ -274,28 +278,28 @@ Plateau ajouteCase(Plateau p) {
  * @param p le plateau
  **/
 void dessine(Plateau p) {
-    cout << "-----------------------------" << endl;
+    cout << "*************************************" << endl;
     for (int ligne = 0;  ligne < 4; ligne++) {
         for (int col = 0; col < 4; col++) {
-            cout << "| " << p[ligne][col];
+            cout << "*  " << p[ligne][col];
             if (p[ligne][col] <= 8) {
-                cout << "    ";
+                cout << "     ";
             } else if (p[ligne][col] <= 64 ) {
-                cout << "   ";
+                cout << "    ";
             } else if (p[ligne][col] <= 512) {
-                cout << "  ";
+                cout << "   ";
             } else {
-                cout << " ";
+                cout << "  ";
             }
         }
-        cout << '|' << endl;
-        cout << "-----------------------------" << endl;
+        cout << '*' << endl;
+        cout << "*************************************" << endl << endl;
     }
 }
 
 /** permet de savoir si une partie est terminée
  *  @param plateau un plateau
- *  @return true si le plateau est vide, false sinon
+ *  @return true si le plateau est terminé, false sinon
  **/
 bool estTermine(Plateau p) {
     for (int dir = 1; dir <= 4; dir++) {
@@ -468,6 +472,7 @@ void tests() {
     dessine(jeuTest);
     jeuTest[3][3] = 1024;
     dessine(jeuTest);
-    dessine(ajouteCase(jeuTest));
-    dessine(ajouteCase(plateauInitial()));
+    int quatres = 0;
+    dessine(ajouteCase(jeuTest, quatres));
+    dessine(ajouteCase(plateauInitial(), quatres));
 }
