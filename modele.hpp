@@ -278,7 +278,7 @@ Plateau ajouteCase(Plateau p, int& q) {
  * @param p le plateau
  **/
 void dessine(Plateau p) {
-    cout << "*******************************" << endl;
+    cout << "*************************************" << endl;
     for (int ligne = 0;  ligne < 4; ligne++) {
         for (int col = 0; col < 4; col++) {
             cout << "*  " << p[ligne][col];
@@ -293,7 +293,7 @@ void dessine(Plateau p) {
             }
         }
         cout << '*' << endl;
-        cout << "*******************************" << endl << endl;
+        cout << "*************************************" << endl << endl;
     }
 }
 
