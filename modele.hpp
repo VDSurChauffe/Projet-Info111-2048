@@ -259,18 +259,15 @@ Plateau deplacement(Plateau plateau, int direction) {
 
 /** ajoute une case à un plateau
  * @param p un plateau, dont on suppose qu'il a au moins une case vide
- * @param q variable globale qui designe le nombre des 4 apparues naturellement
+ * @param k la valeur (2/4) de la case à ajouter
  * @return le plateau après apparition d'une case 2/4
  */
-Plateau ajouteCase(Plateau p, int& q) {
+Plateau ajouteCase(Plateau p, int k) {
     int caseRandom = rand() % 16;
     while (p[caseRandom / 4][caseRandom % 4] != 0) {
         caseRandom = rand() % 16;
     }
-    p[caseRandom / 4][caseRandom % 4] = tireDeuxOuQuatre();
-    if (p[caseRandom / 4][caseRandom % 4] == 4) {
-        q++;
-    }
+    p[caseRandom / 4][caseRandom % 4] = k;
     return p;
 }
 
@@ -472,7 +469,6 @@ void tests() {
     dessine(jeuTest);
     jeuTest[3][3] = 1024;
     dessine(jeuTest);
-    int quatres = 0;
-    dessine(ajouteCase(jeuTest, quatres));
-    dessine(ajouteCase(plateauInitial(), quatres));
+    dessine(ajouteCase(jeuTest, tireDeuxOuQuatre()));
+    dessine(ajouteCase(plateauInitial(), tireDeuxOuQuatre()));
 }
