@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 #include <ctime>
-#include "modele.hpp"
+#include "modele.cpp"
 
 using namespace std;
 
