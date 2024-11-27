@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <ctime>
+#include <SDL2/SDL.h>
 #include "modele.hpp"
 
 using namespace std;
