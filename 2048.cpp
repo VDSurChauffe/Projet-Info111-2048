@@ -14,26 +14,33 @@ int main() {
     //Teste automatiquement les fonctions de modele.hpp
     //Pour ce faire il suffit simplement de décommenter la ligne ci-dessous
     tests();
+
+    string couleurDuFond = "\x1b[48;5;237m";
+    string couleurPrincipal = "\x1b[38;5;166m";
+    string couleurNoir = "\x1b[38;5;0m";
+    string couleurErreur = "\x1b[38;5;160m";
     
+    cout << couleurDuFond << couleurPrincipal << endl;
     cout << "*****   *****   *   *   *****" << endl;
     cout << "    *   *   *   *   *   *   *" << endl;
     cout << "*****   *   *   *****   *****" << endl;
     cout << "*       *   *       *   *   *" << endl;
     cout << "*****   *****       *   *****" << endl << endl;
+    cout << couleurNoir << endl;
     cout << "CRÉÉ PAR PARSA FARJAM ET VICTOR DAVIAU EN 2024" << endl << endl;
-    cout << "Veuillez choisir le mode d'interaction avec le jeu en tapant son numéro" << endl << "1. WASD" << endl << "2. ZQSD" << endl << "3. Flèches" << endl;
+    cout << couleurPrincipal << "Veuillez choisir le mode d'interaction avec le jeu en tapant son numéro" << endl << couleurPrincipal << "1. \x1b[38;5;0m" << "WASD" << endl << couleurPrincipal << "2. \x1b[38;5;0m" << "ZQSD" << endl << couleurPrincipal << "3. " << couleurNoir << "Flèches" << endl;
 
     string mode_interaction = "";
 
     cin >> mode_interaction;
 
     while (mode_interaction != "1" and mode_interaction != "2" and mode_interaction != "3") {
-        cout << "Mode d'interaction saisi incorrect ! Veuillez reéssayer :" << endl;
+        cout << couleurErreur << "Mode d'interaction saisi incorrect ! Veuillez reéssayer :" << endl;
         cin >> mode_interaction;
     }
 
     if (mode_interaction == "3") {
-        cout << "Flèche Haut -> Déplacer vers le haut" << endl << "Flèche Gauche -> Déplacer vers la gauche" << endl << "Flèche Droite -> Déplacer vers la droite" << endl << "Flèche Bas -> Déplacer vers le bas" << endl << endl;
+        cout << couleurPrincipal << "Flèche Haut " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers le haut" << endl << couleurPrincipal << "Flèche Gauche " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers la gauche" << endl << couleurPrincipal << "Flèche Droite " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers la droite" << endl << couleurPrincipal << "Flèche Bas " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers le bas" << endl << endl << couleurNoir;
         cout << "Ce mode de jeu sera bientôt disponible !";
         return 0;
     }
@@ -46,19 +53,20 @@ int main() {
     Plateau plateauPrecedent = plateauVide();
 
     if (mode_interaction == "1") {
-        cout << "W -> Déplacer vers le haut" << endl << "A -> Déplacer vers la gauche" << endl << "S -> Déplacer vers la droite" << endl << "D -> Déplacer vers le bas" << endl << endl;
+        cout << couleurPrincipal << "W " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers le haut" << endl << couleurPrincipal << "A " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers la gauche" << endl << couleurPrincipal << "S " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers la droite" << endl << couleurPrincipal << "D " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers le bas" << endl << endl << couleurNoir;
     }
     if (mode_interaction == "2") {
-        cout << "Z -> Déplacer vers le haut" << endl << "Q -> Déplacer vers la gauche" << endl << "S -> Déplacer vers la droite" << endl << "D -> Déplacer vers le bas" << endl << endl;
+        cout << "Z " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers le haut" << endl << "Q " << couleurPrincipal << "-> " << couleurPrincipal << "Déplacer vers la gauche" << endl << "S " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers la droite" << endl << "" << "D " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers le bas" << endl << endl << couleurNoir;
     }
 
     while (true) {
         dessine(plateauDuJeu);
         plateauPrecedent = plateauDuJeu;
 
-        cout << "SCORE : " << score << endl;
+        cout << couleurPrincipal << "SCORE : " << couleurNoir << score << endl << couleurNoir;
         cout << "Entrez une commande : ";
         cin >> commande;
+        cout << couleurNoir;
 
         if (
             ((commande == "w" or commande == "W") and mode_interaction == "1")
@@ -102,5 +110,6 @@ int main() {
         }
     }
 
+    cout << "\x1b[0m";
     return 0;
 }
