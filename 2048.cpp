@@ -19,6 +19,7 @@ int main() {
     string couleurPrincipal = "\x1b[38;5;166m";
     string couleurNoir = "\x1b[38;5;0m";
     string couleurErreur = "\x1b[38;5;160m";
+    string couleurGagne = "\x1b[38;5;82m"
     
     cout << couleurDuFond << couleurPrincipal << endl;
     cout << "*****   *****   *   *   *****" << endl;
@@ -93,9 +94,9 @@ int main() {
         if (estTermine(plateauDuJeu) == true) {
             cout << "Partie terminée ! ";
             if (estGagnant(plateauDuJeu) == true) {
-                cout << "Vous avez gagné !" << endl << endl << "Sortie du programme. Au revoir !";
+                cout << couleurGagne << "Vous avez gagné !" << endl << endl << "Sortie du programme. Au revoir !";
             } else {
-                cout << "Vous avez perdu !" << endl << endl << "Sortie du programme. Au revoir !";
+                cout << couleurErreur << "Vous avez perdu !" << endl << endl << "Sortie du programme. Au revoir !";
             }
             break;
         } else {
