@@ -15,8 +15,8 @@ int main() {
     //Pour ce faire il suffit simplement de décommenter la ligne ci-dessous
     tests();
 
-    string couleurDuFond = "\x1b[48;5;237m";
-    string couleurPrincipal = "\x1b[38;5;15m";
+    string couleurDuFond = "\x1b[48;5;250m";
+    string couleurPrincipal = "\x1b[38;5;166m";
     string couleurNoir = "\x1b[38;5;0m";
     string couleurErreur = "\x1b[38;5;160m";
     
@@ -87,7 +87,7 @@ int main() {
             plateauDuJeu = deplacement(plateauDuJeu, 2);
             score = scorePlateau(plateauDuJeu, quatresNaturels);
         } else {
-            cout << "Commande saisie inconnue." << endl;
+            cout << couleurErreur <<"Commande saisie inconnue." << endl;
         }
 
         if (estTermine(plateauDuJeu) == true) {
