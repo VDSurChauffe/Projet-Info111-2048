@@ -19,7 +19,7 @@ int main() {
     string couleurPrincipal = "\x1b[38;5;166m";
     string couleurNoir = "\x1b[38;5;0m";
     string couleurErreur = "\x1b[38;5;160m";
-    string couleurGagne = "\x1b[38;5;82m"
+    string couleurGagne = "\x1b[38;5;82m";
     
     cout << couleurDuFond << couleurPrincipal << endl;
     cout << "*****   *****   *   *   *****" << endl;
