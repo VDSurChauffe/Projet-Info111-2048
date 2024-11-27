@@ -67,7 +67,7 @@ int main() {
         cout << couleurPrincipal << "SCORE : " << couleurNoir << score << endl << couleurNoir;
         cout << "Entrez une commande : ";
         cin >> commande;
-        cout << couleurNoir;
+        cout << couleurNoir << endl;
 
         if (
             ((commande == "w" or commande == "W") and mode_interaction == "1")
@@ -88,20 +88,20 @@ int main() {
             plateauDuJeu = deplacement(plateauDuJeu, 2);
             score = scorePlateau(plateauDuJeu, quatresNaturels);
         } else {
-            cout << couleurErreur <<"Commande saisie inconnue." << endl;
+            cout << couleurErreur <<"Commande saisie inconnue." << endl << endl << endl;
         }
 
         if (estTermine(plateauDuJeu) == true) {
             cout << "Partie terminée ! ";
             if (estGagnant(plateauDuJeu) == true) {
-                cout << couleurGagne << "Vous avez gagné !" << endl << endl << "Sortie du programme. Au revoir !";
+                cout << couleurGagne << "Vous avez gagné !" << endl << endl << "Sortie du programme. Au revoir !" << endl;
             } else {
-                cout << couleurErreur << "Vous avez perdu !" << endl << endl << "Sortie du programme. Au revoir !";
+                cout << couleurErreur << "Vous avez perdu !" << endl << endl << "Sortie du programme. Au revoir !" << endl;
             }
             break;
         } else {
             if (estGagnant(plateauDuJeu)) {
-                cout << "Vous avez gagné ! Continuez pour atteindre le meilleur score possible !" << endl;
+                cout << "Vous avez gagné ! Continuez pour atteindre le meilleur score possible !" << endl << endl;
             }
             if (plateauPrecedent != plateauDuJeu) {
                 tirage = tireDeuxOuQuatre();

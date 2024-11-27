@@ -7,6 +7,24 @@
 using namespace std;
 using Plateau = vector<vector<int>>;
 
+string couleurDuTableau = "\x1b[38;5;94m";
+string couleurNoir = "\x1b[38;5;0m";
+string couleurBlanc = "\x1b[38;5;15m"; 
+string couleurDuFond = "\x1b[48;5;250m";
+string couleurCarreeVide = "\x1b[48;5;231m";
+string couleurCarree2 = "\x1b[48;5;222m";
+string couleurCarree4 = "\x1b[48;5;220m";
+string couleurCarree6 = "\x1b[48;5;214m";
+string couleurCarree8 = "\x1b[48;5;208m";
+string couleurCarree16 = "\x1b[48;5;202m";
+string couleurCarree32 = "\x1b[48;5;196m";
+string couleurCarree64 = "\x1b[48;5;160m";
+string couleurCarree128 = "\x1b[48;5;160m";
+string couleurCarree256 = "\x1b[48;5;124m";
+string couleurCarree512 = "\x1b[48;5;124m";
+string couleurCarree1024 = "\x1b[48;5;88m";
+string couleurCarree2048 = "\x1b[48;5;88m";
+string couleurCarreePlus = "\x1b[48;5;52m";
 
 // Toutes les fonctions associées aux déplacements ont été écrites par Parsa
 // La plupart des autres fonctions, ainsi que tests(), ont été écrites et maintenues par Victor
@@ -276,22 +294,41 @@ Plateau ajouteCase(Plateau p, int k) {
  * @param p le plateau
  **/
 void dessine(Plateau p) {
-    cout << "*************************************" << endl;
+    cout << couleurDuTableau << "=====================================" << couleurNoir << endl;
     for (int ligne = 0;  ligne < 4; ligne++) {
         for (int col = 0; col < 4; col++) {
-            cout << "*  " << p[ligne][col];
-            if (p[ligne][col] <= 8) {
-                cout << "     ";
-            } else if (p[ligne][col] <= 64 ) {
-                cout << "    ";
-            } else if (p[ligne][col] <= 512) {
-                cout << "   ";
+            if (p[ligne][col] == 0) {
+                cout << couleurDuTableau << "|" << couleurDuFond << "        " << couleurDuFond << couleurNoir;
             } else {
-                cout << "  ";
+                if (p[ligne][col] == 2) {
+                    cout << couleurDuTableau << "|" << couleurCarree2 << couleurBlanc << " " << 2 << "      " << couleurDuFond << couleurNoir;
+                } else if (p[ligne][col] == 4) {
+                    cout << couleurDuTableau << "|" << couleurCarree4 << couleurBlanc << " " << 4 << "      " << couleurDuFond << couleurNoir;
+                }else if (p[ligne][col] == 8) {
+                    cout << couleurDuTableau << "|" << couleurCarree8 << couleurBlanc << " " << 8 << "      " << couleurDuFond << couleurNoir;
+                }else if (p[ligne][col] == 16) {
+                    cout << couleurDuTableau << "|" << couleurCarree16 << couleurBlanc << " " << 16 << "     " << couleurDuFond << couleurNoir;
+                }else if (p[ligne][col] == 32) {
+                    cout << couleurDuTableau << "|" << couleurCarree32 << couleurBlanc << " " << 32 << "     " << couleurDuFond << couleurNoir;
+                }else if (p[ligne][col] == 64) {
+                    cout << couleurDuTableau << "|" << couleurCarree64 << couleurBlanc << " " << 64 << "     " << couleurDuFond << couleurNoir;
+                }else if (p[ligne][col] == 128) {
+                    cout << couleurDuTableau << "|" << couleurCarree128 << couleurBlanc << " " << 128 << "    " << couleurDuFond << couleurNoir;
+                }else if (p[ligne][col] == 256) {
+                    cout << couleurDuTableau << "|" << couleurCarree256 << couleurBlanc << " " << 256 << "    " << couleurDuFond << couleurNoir;
+                }else if (p[ligne][col] == 512) {
+                    cout << couleurDuTableau << "|" << couleurCarree512 << couleurBlanc << " " << 512 << "    " << couleurDuFond << couleurNoir;
+                }else if (p[ligne][col] == 1024) {
+                    cout << couleurDuTableau << "|" << couleurCarree1024 << couleurBlanc << " " << 1024 << "   " << couleurDuFond << couleurNoir;
+                }else if (p[ligne][col] == 2048) {
+                    cout << couleurDuTableau << "|" << couleurCarree2048 << couleurBlanc << " " << 2048 << "   " << couleurDuFond << couleurNoir;
+                } else {
+                    cout << couleurDuTableau << "|" << couleurCarreePlus << couleurBlanc << " " << p[ligne][col] << "   " << couleurDuFond << couleurNoir;
+                }
             }
         }
-        cout << '*' << endl;
-        cout << "*************************************" << endl << endl;
+        cout << couleurDuTableau << '|' << couleurNoir << endl;
+        cout << couleurDuTableau << "=====================================" << couleurNoir << endl;
     }
 }
 
