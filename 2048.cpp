@@ -16,7 +16,7 @@ int main() {
     tests();
 
     string couleurDuFond = "\x1b[48;5;237m";
-    string couleurPrincipal = "\x1b[38;5;166m";
+    string couleurPrincipal = "\x1b[38;5;15m";
     string couleurNoir = "\x1b[38;5;0m";
     string couleurErreur = "\x1b[38;5;160m";
     
