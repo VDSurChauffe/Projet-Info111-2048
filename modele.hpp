@@ -2,6 +2,7 @@
 #include <string>
 #include <stdexcept>
 #include <iostream>
+#include <SDL2/SDL.h>
 
 using namespace std;
 using Plateau = vector<vector<int>>;
