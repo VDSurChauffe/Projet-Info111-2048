@@ -2,6 +2,7 @@
 #include <string>
 #include <stdexcept>
 #include <iostream>
+#include <SDL2/SDL.h>
 #include "modele.hpp"
 
 using namespace std;
@@ -291,7 +292,7 @@ void dessine(Plateau p) {
             }
         }
         cout << '*' << endl;
-        cout << "*************************************" << endl << endl;
+        cout << "*************************************" << endl;
     }
 }
 
@@ -352,6 +353,51 @@ int scorePlateau(Plateau jeu, int nat) {
         }
     }
     return total - 4 * nat;
+}
+
+/** change la couleur active de SDL à une couleur donnée
+ * @param ren le renderer SDL à utiliser
+ * @param col la couleur à utiliser
+ **/
+void changeGUIColor(SDL_Renderer *ren, SDL_Color col) {
+    SDL_SetRenderDrawColor(ren, col.r, col.g, col.b, col.a);
+}
+
+/** dessine l'interface graphique du jeu selon l'état du plateau de jeu
+ * @param ren le renderer SDL à utiliser
+ * @param colset la palette de couleurs sous la forme d'un tableau de SDL_Color
+ * @param jeu le plateau de jeu actuel
+ **/
+void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, Plateau jeu) {
+    SDL_Color col_bg = colset[0];
+    SDL_Color col_board_bg = colset[1];
+    SDL_Color col_empty = colset[2];
+    SDL_Rect rect_board_bg;
+    rect_board_bg.w = rect_board_bg.h = 420;
+    rect_board_bg.x = 40;
+    rect_board_bg.y = 150;
+    changeGUIColor(ren, col_bg);
+    SDL_RenderClear(ren); //On peint l'écran en la couleur d'arrière-plan
+    changeGUIColor(ren, col_board_bg);
+    SDL_RenderFillRect(ren, &rect_board_bg);
+    SDL_Rect case_rect;
+    case_rect.w = case_rect.h = 80;
+    int val;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            case_rect.x = 60 + 100*j;
+            case_rect.y = 170 + 100*i;
+            val = jeu[i][j];
+            if (val == 0) {
+                changeGUIColor(ren, col_empty);
+            } else if (val > 2048) {
+                changeGUIColor(ren, colset[14]);
+            } else {
+                changeGUIColor(ren, colset[logCase(val) + 2]);
+            }
+            SDL_RenderFillRect(ren, &case_rect);
+        }
+    }
 }
 
 /**teste les fonctions de ce fichier pour vérifier qu'elles fonctionnent correctement
