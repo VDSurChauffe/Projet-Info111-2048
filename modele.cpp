@@ -300,27 +300,27 @@ void dessine(Plateau p) {
                 cout << couleurDuTableau << "|" << couleurDuFond << "        " << couleurDuFond << couleurNoir;
             } else {
                 if (p[ligne][col] == 2) {
-                    cout << couleurDuTableau << "|" << couleurCarree2 << couleurBlanc << " " << 2 << "      " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree2 << couleurNoir << " " << 2 << "      " << couleurDuFond << couleurNoir;
                 } else if (p[ligne][col] == 4) {
-                    cout << couleurDuTableau << "|" << couleurCarree4 << couleurBlanc << " " << 4 << "      " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree4 << couleurNoir << " " << 4 << "      " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 8) {
-                    cout << couleurDuTableau << "|" << couleurCarree8 << couleurBlanc << " " << 8 << "      " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree8 << couleurNoir << " " << 8 << "      " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 16) {
-                    cout << couleurDuTableau << "|" << couleurCarree16 << couleurBlanc << " " << 16 << "     " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree16 << couleurNoir << " " << 16 << "     " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 32) {
-                    cout << couleurDuTableau << "|" << couleurCarree32 << couleurBlanc << " " << 32 << "     " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree32 << couleurNoir << " " << 32 << "     " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 64) {
-                    cout << couleurDuTableau << "|" << couleurCarree64 << couleurBlanc << " " << 64 << "     " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree64 << couleurNoir << " " << 64 << "     " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 128) {
-                    cout << couleurDuTableau << "|" << couleurCarree128 << couleurBlanc << " " << 128 << "    " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree128 << couleurNoir << " " << 128 << "    " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 256) {
-                    cout << couleurDuTableau << "|" << couleurCarree256 << couleurBlanc << " " << 256 << "    " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree256 << couleurNoir << " " << 256 << "    " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 512) {
-                    cout << couleurDuTableau << "|" << couleurCarree512 << couleurBlanc << " " << 512 << "    " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree512 << couleurNoir << " " << 512 << "    " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 1024) {
-                    cout << couleurDuTableau << "|" << couleurCarree1024 << couleurBlanc << " " << 1024 << "   " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree1024 << couleurNoir << " " << 1024 << "   " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 2048) {
-                    cout << couleurDuTableau << "|" << couleurCarree2048 << couleurBlanc << " " << 2048 << "   " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree2048 << couleurNoir << " " << 2048 << "   " << couleurDuFond << couleurNoir;
                 } else {
                     cout << couleurDuTableau << "|" << couleurCarreePlus << couleurBlanc << " " << p[ligne][col] << "   " << couleurDuFond << couleurNoir;
                 }
