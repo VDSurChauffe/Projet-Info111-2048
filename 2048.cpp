@@ -10,11 +10,6 @@ using Plateau = vector<vector<int>> ;
 
 int main() {
     srand(time(NULL));
-    
-    //Teste automatiquement les fonctions de modele.hpp
-    //Pour ce faire il suffit simplement de décommenter la ligne ci-dessous
-    tests();
-
     string couleurDuFond = "\x1b[48;5;250m";
     string couleurPrincipal = "\x1b[38;5;166m";
     string couleurNoir = "\x1b[38;5;0m";
