@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <ctime>
+#include <cstdlib>
 #include "modele.hpp"
 
 using namespace std;
@@ -56,6 +57,7 @@ int main() {
     }
 
     while (true) {
+        system("clear");
         dessine(plateauDuJeu);
 
         cout << couleurPrincipal << "SCORE : " << couleurNoir << score << endl << couleurNoir;
