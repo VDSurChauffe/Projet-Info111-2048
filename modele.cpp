@@ -12,19 +12,18 @@ string couleurNoir = "\x1b[38;5;0m";
 string couleurBlanc = "\x1b[38;5;15m"; 
 string couleurDuFond = "\x1b[48;5;250m";
 string couleurCarreeVide = "\x1b[48;5;231m";
-string couleurCarree2 = "\x1b[48;5;222m";
-string couleurCarree4 = "\x1b[48;5;220m";
-string couleurCarree6 = "\x1b[48;5;214m";
-string couleurCarree8 = "\x1b[48;5;208m";
-string couleurCarree16 = "\x1b[48;5;202m";
-string couleurCarree32 = "\x1b[48;5;196m";
-string couleurCarree64 = "\x1b[48;5;160m";
-string couleurCarree128 = "\x1b[48;5;160m";
-string couleurCarree256 = "\x1b[48;5;124m";
-string couleurCarree512 = "\x1b[48;5;124m";
-string couleurCarree1024 = "\x1b[48;5;88m";
-string couleurCarree2048 = "\x1b[48;5;88m";
-string couleurCarreePlus = "\x1b[48;5;52m";
+string couleurCarree2 = "\x1b[48;5;15m";
+string couleurCarree4 = "\x1b[48;5;222m";
+string couleurCarree8 = "\x1b[48;5;215m";
+string couleurCarree16 = "\x1b[48;5;208m";
+string couleurCarree32 = "\x1b[48;5;202m";
+string couleurCarree64 = "\x1b[48;5;196m";
+string couleurCarree128 = "\x1b[48;5;226m";
+string couleurCarree256 = "\x1b[48;5;226m";
+string couleurCarree512 = "\x1b[48;5;226m";
+string couleurCarree1024 = "\x1b[48;5;226m";
+string couleurCarree2048 = "\x1b[48;5;226m";
+string couleurCarreePlus = "\x1b[48;5;236m";
 
 // Toutes les fonctions associées aux déplacements ont été écrites par Parsa
 // La plupart des autres fonctions, ainsi que tests(), ont été écrites et maintenues par Victor
