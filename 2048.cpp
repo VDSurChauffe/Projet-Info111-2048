@@ -57,9 +57,24 @@ int main() {
 
     while (true) {
         dessine(plateauDuJeu);
-        plateauPrecedent = plateauDuJeu;
 
         cout << couleurPrincipal << "SCORE : " << couleurNoir << score << endl << couleurNoir;
+
+        if (estTermine(plateauDuJeu) == true) {
+            cout << "Partie terminée ! ";
+            if (estGagnant(plateauDuJeu) == true) {
+                cout << couleurGagne << "Vous avez gagné !" << endl << endl << "Sortie du programme. Au revoir !" << endl;
+            } else {
+                cout << couleurErreur << "Vous avez perdu !" << endl << endl << "Sortie du programme. Au revoir !" << endl;
+            }
+            break;
+        } else {
+            if (estGagnant(plateauDuJeu)) {
+                cout << "Vous avez gagné ! Continuez pour atteindre le meilleur score possible !" << endl << endl;
+            }
+        }
+
+        plateauPrecedent = plateauDuJeu;
         cout << "Entrez une commande : ";
         cin >> commande;
         cout << couleurNoir << endl;
@@ -86,24 +101,12 @@ int main() {
             cout << couleurErreur <<"Commande saisie inconnue." << endl << endl << endl;
         }
 
-        if (estTermine(plateauDuJeu) == true) {
-            cout << "Partie terminée ! ";
-            if (estGagnant(plateauDuJeu) == true) {
-                cout << couleurGagne << "Vous avez gagné !" << endl << endl << "Sortie du programme. Au revoir !" << endl;
-            } else {
-                cout << couleurErreur << "Vous avez perdu !" << endl << endl << "Sortie du programme. Au revoir !" << endl;
-            }
-            break;
-        } else {
-            if (estGagnant(plateauDuJeu)) {
-                cout << "Vous avez gagné ! Continuez pour atteindre le meilleur score possible !" << endl << endl;
-            }
-            if (plateauPrecedent != plateauDuJeu) {
-                tirage = tireDeuxOuQuatre();
-                if (tirage == 4) {quatresNaturels++;}
-                plateauDuJeu = ajouteCase(plateauDuJeu, tirage);
-            }
+        if (plateauPrecedent != plateauDuJeu) {
+            tirage = tireDeuxOuQuatre();
+            if (tirage == 4) {quatresNaturels++;}
+            plateauDuJeu = ajouteCase(plateauDuJeu, tirage);
         }
+
     }
 
     cout << "\x1b[0m";
