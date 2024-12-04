@@ -8,4 +8,4 @@ modele.o: modele.cpp modele.hpp
 	clang++ --std=c++20 -c modele.cpp
 
 clean: modele.o 2048.o
-	rm -f --std=c++20 modele.o 2048.o
+	rm -f modele.o 2048.o
