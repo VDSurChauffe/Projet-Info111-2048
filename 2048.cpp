@@ -12,6 +12,7 @@ using Plateau = vector<vector<int>> ;
 int main() {
     srand(time(NULL));
 
+    // CES VARIABLES SERENT A DEFINIR DES COULEURS QUI NE CHANGERONT PAS EN FONCTION DES THEMES
     string couleurDuFond;
     string couleurPrincipal;
     string couleurBlanc = "\x1b[38;5;15m";;
@@ -19,6 +20,7 @@ int main() {
     string couleurGagne = "\x1b[38;5;190m";
 
     while (true) {
+        // SELECTIONNEUR DE THEME
         cout << "Selectionner votre thème de couleur :" << endl;
         cout << "1. Classique" << endl << "2. Paris-Saclay" << endl << "3. GitHub" << endl << "4. Slack" << endl;
 
@@ -26,6 +28,7 @@ int main() {
 
         cin >> theme;
 
+        // CES TESTS DEFINISSENT DES COULEURS PAR RAPPORT AU THEME CHOISI
         if (theme == "1") {
             couleurDuFond = "\x1b[48;5;235m";
             couleurPrincipal = "\x1b[38;5;214m";
@@ -52,6 +55,7 @@ int main() {
 
     }
 
+    // CETTE PHRASE N'EST JAMAIS VU PAR L'UTILISATEUR. ELLE SERT A CORRIGER UN BUG D'AFFICHAGE SUR CERTAINS CONSOLES
     system("clear");
     cout << couleurDuFond << couleurPrincipal;
     cout << "Cela est pour eviter des bouges d'affichage" << endl;
@@ -64,6 +68,7 @@ int main() {
     Plateau plateauDuJeu = plateauInitial();
     Plateau plateauPrecedent = plateauVide();
 
+    // BOUCLE PRINCIPALE DU JEU 
     while (true) {
         system("clear");
         cout << couleurDuFond << couleurPrincipal;
@@ -79,6 +84,7 @@ int main() {
 
         cout << couleurPrincipal << "SCORE : " << couleurBlanc << score << endl << couleurBlanc;
 
+        // VERIFIE SI LE JEU EST TERMINEE
         if (estTermine(plateauDuJeu) == true) {
             cout << "Partie terminée ! ";
             if (estGagnant(plateauDuJeu) == true) {
@@ -93,11 +99,13 @@ int main() {
             }
         }
 
+        // RECEPTION DE LA COMMANDE DE L'UTILISATEUR
         plateauPrecedent = plateauDuJeu;
         cout << "Entrez une commande : ";
         cin >> commande;
         cout << couleurBlanc << endl;
 
+        // EXECUTION DE LA COMMANDE DE L'UTILISATEUR
         if (commande == "w" or commande == "W" or commande == "z" or commande == "Z") {
             plateauDuJeu = deplacement(plateauDuJeu, 1);
             score = scorePlateau(plateauDuJeu, quatresNaturels);
@@ -112,6 +120,7 @@ int main() {
             score = scorePlateau(plateauDuJeu, quatresNaturels);
         }
 
+        // AJOUTE UNE CASE AU PLATEAU SI LE PLATEAU A CHANGE DEPUIS LA DERNIERE FOIS
         if (plateauPrecedent != plateauDuJeu) {
             tirage = tireDeuxOuQuatre();
             if (tirage == 4) {quatresNaturels++;}
