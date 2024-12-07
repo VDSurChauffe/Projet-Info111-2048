@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <ctime>
+#include <cstdlib>
 #include "modele.hpp"
 
 using namespace std;
@@ -10,41 +11,55 @@ using Plateau = vector<vector<int>> ;
 
 int main() {
     srand(time(NULL));
-    
-    //Teste automatiquement les fonctions de modele.hpp
-    //Pour ce faire il suffit simplement de décommenter la ligne ci-dessous
-    tests();
 
-    string couleurDuFond = "\x1b[48;5;250m";
-    string couleurPrincipal = "\x1b[38;5;166m";
-    string couleurNoir = "\x1b[38;5;0m";
-    string couleurErreur = "\x1b[38;5;160m";
-    string couleurGagne = "\x1b[38;5;82m";
-    
+    // CES VARIABLES SERENT A DEFINIR DES COULEURS QUI NE CHANGERONT PAS EN FONCTION DES THEMES
+    string couleurDuFond;
+    string couleurPrincipal;
+    string couleurBlanc = "\x1b[38;5;15m";;
+    string couleurErreur = "\x1b[38;5;196m";;
+    string couleurGagne = "\x1b[38;5;190m";
+
+    while (true) {
+        // SELECTIONNEUR DE THEME
+        cout << "Selectionner votre thème de couleur :" << endl;
+        cout << "1. Classique" << endl << "2. Paris-Saclay" << endl << "3. GitHub" << endl << "4. Slack" << endl;
+
+        string theme;
+
+        cin >> theme;
+
+        // CES TESTS DEFINISSENT DES COULEURS PAR RAPPORT AU THEME CHOISI
+        if (theme == "1") {
+            couleurDuFond = "\x1b[48;5;235m";
+            couleurPrincipal = "\x1b[38;5;214m";
+            choisirTheme(1);
+            break;
+        } else if (theme == "2") {
+            couleurDuFond = "\x1b[48;5;53m";
+            couleurPrincipal = "\x1b[38;5;15m";
+            choisirTheme(2);
+            break;
+        } else if (theme == "3") {
+            couleurDuFond = "\x1b[48;5;236m";
+            couleurPrincipal = "\x1b[38;5;15m";
+            choisirTheme(3);
+            break;
+        } else if (theme == "4") {
+            couleurDuFond = "\x1b[48;5;235m";
+            couleurPrincipal = "\x1b[38;5;161m";
+            choisirTheme(4);
+            break;
+        } else {
+            cout << "Choix incorrecte. Veuillez reessayer";
+        }
+
+    }
+
+    // CETTE PHRASE N'EST JAMAIS VU PAR L'UTILISATEUR. ELLE SERT A CORRIGER UN BUG D'AFFICHAGE SUR CERTAINS CONSOLES
+    system("clear");
+    cout << couleurDuFond << couleurPrincipal;
+    cout << "Cela est pour eviter des bouges d'affichage" << endl;
     cout << couleurDuFond << couleurPrincipal << endl;
-    cout << "*****   *****   *   *   *****" << endl;
-    cout << "    *   *   *   *   *   *   *" << endl;
-    cout << "*****   *   *   *****   *****" << endl;
-    cout << "*       *   *       *   *   *" << endl;
-    cout << "*****   *****       *   *****" << endl << endl;
-    cout << couleurNoir << endl;
-    cout << "CRÉÉ PAR PARSA FARJAM ET VICTOR DAVIAU EN 2024" << endl << endl;
-    cout << couleurPrincipal << "Veuillez choisir le mode d'interaction avec le jeu en tapant son numéro" << endl << couleurPrincipal << "1. \x1b[38;5;0m" << "WASD" << endl << couleurPrincipal << "2. \x1b[38;5;0m" << "ZQSD" << endl << couleurPrincipal << "3. " << couleurNoir << "Flèches" << endl;
-
-    string mode_interaction = "";
-
-    cin >> mode_interaction;
-
-    while (mode_interaction != "1" and mode_interaction != "2" and mode_interaction != "3") {
-        cout << couleurErreur << "Mode d'interaction saisi incorrect ! Veuillez reéssayer :" << endl;
-        cin >> mode_interaction;
-    }
-
-    if (mode_interaction == "3") {
-        cout << couleurPrincipal << "Flèche Haut " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers le haut" << endl << couleurPrincipal << "Flèche Gauche " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers la gauche" << endl << couleurPrincipal << "Flèche Droite " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers la droite" << endl << couleurPrincipal << "Flèche Bas " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers le bas" << endl << endl << couleurNoir;
-        cout << "Ce mode de jeu sera bientôt disponible !";
-        return 0;
-    }
 
     string commande;
     int score = 0;
@@ -53,44 +68,23 @@ int main() {
     Plateau plateauDuJeu = plateauInitial();
     Plateau plateauPrecedent = plateauVide();
 
-    if (mode_interaction == "1") {
-        cout << couleurPrincipal << "W " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers le haut" << endl << couleurPrincipal << "A " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers la gauche" << endl << couleurPrincipal << "S " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers la droite" << endl << couleurPrincipal << "D " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers le bas" << endl << endl << couleurNoir;
-    }
-    if (mode_interaction == "2") {
-        cout << "Z " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers le haut" << endl << "Q " << couleurPrincipal << "-> " << couleurPrincipal << "Déplacer vers la gauche" << endl << "S " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers la droite" << endl << "" << "D " << couleurNoir << "-> " << couleurPrincipal << "Déplacer vers le bas" << endl << endl << couleurNoir;
-    }
-
+    // BOUCLE PRINCIPALE DU JEU 
     while (true) {
+        system("clear");
+        cout << couleurDuFond << couleurPrincipal;
+        cout << "*****   *****   *   *   *****" << endl;
+        cout << "    *   *   *   *   *   *   *" << endl;
+        cout << "*****   *   *   *****   *****" << endl;
+        cout << "*       *   *       *   *   *" << endl;
+        cout << "*****   *****       *   *****" << endl << endl;
+        cout << couleurDuFond << couleurPrincipal << endl;
+        cout << "CRÉÉ PAR PARSA FARJAM ET VICTOR DAVIAU EN 2024" << endl << endl;
+        cout << couleurPrincipal << "Vous pouvez jouer avec soit les clés WASD, soit les clés ZQSD. Le jeu detectera cela automatiquement" << endl;
         dessine(plateauDuJeu);
-        plateauPrecedent = plateauDuJeu;
 
-        cout << couleurPrincipal << "SCORE : " << couleurNoir << score << endl << couleurNoir;
-        cout << "Entrez une commande : ";
-        cin >> commande;
-        cout << couleurNoir << endl;
+        cout << couleurPrincipal << "SCORE : " << couleurBlanc << score << endl << couleurBlanc;
 
-        if (
-            ((commande == "w" or commande == "W") and mode_interaction == "1")
-            or ((commande == "z" or commande == "Z") and mode_interaction == "2")
-        ) {
-            plateauDuJeu = deplacement(plateauDuJeu, 1);
-            score = scorePlateau(plateauDuJeu, quatresNaturels);
-        } else if (
-            ((commande == "a" or commande == "A") and mode_interaction == "1")
-            or ((commande == "q" or commande == "Q") and mode_interaction == "2")
-        ) {
-            plateauDuJeu = deplacement(plateauDuJeu, 4);
-            score = scorePlateau(plateauDuJeu, quatresNaturels);
-        } else if (commande == "s" or commande == "S") {
-            plateauDuJeu = deplacement(plateauDuJeu, 3);
-            score = scorePlateau(plateauDuJeu, quatresNaturels);
-        } else if (commande == "d" or commande == "D") {
-            plateauDuJeu = deplacement(plateauDuJeu, 2);
-            score = scorePlateau(plateauDuJeu, quatresNaturels);
-        } else {
-            cout << couleurErreur <<"Commande saisie inconnue." << endl << endl << endl;
-        }
-
+        // VERIFIE SI LE JEU EST TERMINEE
         if (estTermine(plateauDuJeu) == true) {
             cout << "Partie terminée ! ";
             if (estGagnant(plateauDuJeu) == true) {
@@ -103,11 +97,34 @@ int main() {
             if (estGagnant(plateauDuJeu)) {
                 cout << "Vous avez gagné ! Continuez pour atteindre le meilleur score possible !" << endl << endl;
             }
-            if (plateauPrecedent != plateauDuJeu) {
-                tirage = tireDeuxOuQuatre();
-                if (tirage == 4) {quatresNaturels++;}
-                plateauDuJeu = ajouteCase(plateauDuJeu, tirage);
-            }
+        }
+
+        // RECEPTION DE LA COMMANDE DE L'UTILISATEUR
+        plateauPrecedent = plateauDuJeu;
+        cout << "Entrez une commande : ";
+        cin >> commande;
+        cout << couleurBlanc << endl;
+
+        // EXECUTION DE LA COMMANDE DE L'UTILISATEUR
+        if (commande == "w" or commande == "W" or commande == "z" or commande == "Z") {
+            plateauDuJeu = deplacement(plateauDuJeu, 1);
+            score = scorePlateau(plateauDuJeu, quatresNaturels);
+        } else if (commande == "a" or commande == "A" or commande == "q" or commande == "Q") {
+            plateauDuJeu = deplacement(plateauDuJeu, 4);
+            score = scorePlateau(plateauDuJeu, quatresNaturels);
+        } else if (commande == "s" or commande == "S") {
+            plateauDuJeu = deplacement(plateauDuJeu, 3);
+            score = scorePlateau(plateauDuJeu, quatresNaturels);
+        } else if (commande == "d" or commande == "D") {
+            plateauDuJeu = deplacement(plateauDuJeu, 2);
+            score = scorePlateau(plateauDuJeu, quatresNaturels);
+        }
+
+        // AJOUTE UNE CASE AU PLATEAU SI LE PLATEAU A CHANGE DEPUIS LA DERNIERE FOIS
+        if (plateauPrecedent != plateauDuJeu) {
+            tirage = tireDeuxOuQuatre();
+            if (tirage == 4) {quatresNaturels++;}
+            plateauDuJeu = ajouteCase(plateauDuJeu, tirage);
         }
     }
 

@@ -7,27 +7,85 @@
 using namespace std;
 using Plateau = vector<vector<int>>;
 
-string couleurDuTableau = "\x1b[38;5;94m";
-string couleurNoir = "\x1b[38;5;0m";
-string couleurBlanc = "\x1b[38;5;15m"; 
-string couleurDuFond = "\x1b[48;5;250m";
-string couleurCarreeVide = "\x1b[48;5;231m";
-string couleurCarree2 = "\x1b[48;5;222m";
-string couleurCarree4 = "\x1b[48;5;220m";
-string couleurCarree6 = "\x1b[48;5;214m";
-string couleurCarree8 = "\x1b[48;5;208m";
-string couleurCarree16 = "\x1b[48;5;202m";
-string couleurCarree32 = "\x1b[48;5;196m";
-string couleurCarree64 = "\x1b[48;5;160m";
-string couleurCarree128 = "\x1b[48;5;160m";
-string couleurCarree256 = "\x1b[48;5;124m";
-string couleurCarree512 = "\x1b[48;5;124m";
-string couleurCarree1024 = "\x1b[48;5;88m";
-string couleurCarree2048 = "\x1b[48;5;88m";
-string couleurCarreePlus = "\x1b[48;5;52m";
+string couleurDuTableau;
+string couleurNoir = "\x1b[38;5;0m";;
+string couleurBlanc  = "\x1b[38;5;15m"; 
+string couleurDuFond;
+string couleurCarree2 = "\x1b[48;5;15m";
+string couleurCarree4;
+string couleurCarree8;
+string couleurCarree16;
+string couleurCarree32;
+string couleurCarree64;
+string couleurCarree128;
+string couleurCarree256;
+string couleurCarree512;
+string couleurCarree1024;
+string couleurCarree2048;
+string couleurCarreePlus;
 
-// Toutes les fonctions associées aux déplacements ont été écrites par Parsa
-// La plupart des autres fonctions, ainsi que tests(), ont été écrites et maintenues par Victor
+/** fonction choisirTheme (auxiliaire) qui change les couleurs du jeu
+ *  @param theme un entier
+ */
+void choisirTheme(int theme) {
+    if (theme == 1) {
+        couleurDuTableau = "\x1b[38;5;214m";
+        couleurDuFond = "\x1b[48;5;235m";
+        couleurCarree4 = "\x1b[48;5;222m";
+        couleurCarree8 = "\x1b[48;5;215m";
+        couleurCarree16 = "\x1b[48;5;208m";
+        couleurCarree32 = "\x1b[48;5;202m";
+        couleurCarree64 = "\x1b[48;5;196m";
+        couleurCarree128 = "\x1b[48;5;226m";
+        couleurCarree256 = "\x1b[48;5;226m";
+        couleurCarree512 = "\x1b[48;5;221m";
+        couleurCarree1024 = "\x1b[48;5;221m";
+        couleurCarree2048 = "\x1b[48;5;221m";
+        couleurCarreePlus = "\x1b[48;5;236m";
+    } else if (theme == 2) {
+        couleurDuTableau = "\x1b[38;5;253m";
+        couleurDuFond = "\x1b[48;5;53m";
+        couleurCarree4 = "\x1b[48;5;224m";
+        couleurCarree8 = "\x1b[48;5;217m";
+        couleurCarree16 = "\x1b[48;5;210m";
+        couleurCarree32 = "\x1b[48;5;203m";
+        couleurCarree64 = "\x1b[48;5;197m";
+        couleurCarree128 = "\x1b[48;5;139m";
+        couleurCarree256 = "\x1b[48;5;139m";
+        couleurCarree512 = "\x1b[48;5;138m";
+        couleurCarree1024 = "\x1b[48;5;138m";
+        couleurCarree2048 = "\x1b[48;5;174m";
+        couleurCarreePlus = "\x1b[48;5;24m";
+    } else if (theme == 3) {
+        couleurDuTableau = "\x1b[38;5;225m";
+        couleurDuFond = "\x1b[48;5;236m";
+        couleurCarree4 = "\x1b[48;5;153m";
+        couleurCarree8 = "\x1b[48;5;75m";
+        couleurCarree16 = "\x1b[48;5;219m";
+        couleurCarree32 = "\x1b[48;5;213m";
+        couleurCarree64 = "\x1b[48;5;209m";
+        couleurCarree128 = "\x1b[48;5;208m";
+        couleurCarree256 = "\x1b[48;5;214m";
+        couleurCarree512 = "\x1b[48;5;214m";
+        couleurCarree1024 = "\x1b[48;5;196m";
+        couleurCarree2048 = "\x1b[48;5;196m";
+        couleurCarreePlus = "\x1b[48;5;244m";
+    } else if (theme == 4) {
+        couleurDuTableau = "\x1b[38;5;161m";
+        couleurDuFond = "\x1b[48;5;235m";
+        couleurCarree4 = "\x1b[48;5;153m";
+        couleurCarree8 = "\x1b[48;5;81m";
+        couleurCarree16 = "\x1b[48;5;75m";
+        couleurCarree32 = "\x1b[48;5;39m";
+        couleurCarree64 = "\x1b[48;5;33m";
+        couleurCarree128 = "\x1b[48;5;154m";
+        couleurCarree256 = "\x1b[48;5;154m";
+        couleurCarree512 = "\x1b[48;5;82m";
+        couleurCarree1024 = "\x1b[48;5;82m";
+        couleurCarree2048 = "\x1b[48;5;76m";
+        couleurCarreePlus = "\x1b[48;5;22m";
+    }
+}
 
 /** fonction inverseVector (auxiliaire)
  *  @param inp un vecteur<int>
@@ -301,27 +359,27 @@ void dessine(Plateau p) {
                 cout << couleurDuTableau << "|" << couleurDuFond << "        " << couleurDuFond << couleurNoir;
             } else {
                 if (p[ligne][col] == 2) {
-                    cout << couleurDuTableau << "|" << couleurCarree2 << couleurBlanc << " " << 2 << "      " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree2 << couleurNoir << " " << 2 << "      " << couleurDuFond << couleurNoir;
                 } else if (p[ligne][col] == 4) {
-                    cout << couleurDuTableau << "|" << couleurCarree4 << couleurBlanc << " " << 4 << "      " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree4 << couleurNoir << " " << 4 << "      " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 8) {
-                    cout << couleurDuTableau << "|" << couleurCarree8 << couleurBlanc << " " << 8 << "      " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree8 << couleurNoir << " " << 8 << "      " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 16) {
-                    cout << couleurDuTableau << "|" << couleurCarree16 << couleurBlanc << " " << 16 << "     " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree16 << couleurNoir << " " << 16 << "     " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 32) {
-                    cout << couleurDuTableau << "|" << couleurCarree32 << couleurBlanc << " " << 32 << "     " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree32 << couleurNoir << " " << 32 << "     " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 64) {
-                    cout << couleurDuTableau << "|" << couleurCarree64 << couleurBlanc << " " << 64 << "     " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree64 << couleurNoir << " " << 64 << "     " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 128) {
-                    cout << couleurDuTableau << "|" << couleurCarree128 << couleurBlanc << " " << 128 << "    " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree128 << couleurNoir << " " << 128 << "    " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 256) {
-                    cout << couleurDuTableau << "|" << couleurCarree256 << couleurBlanc << " " << 256 << "    " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree256 << couleurNoir << " " << 256 << "    " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 512) {
-                    cout << couleurDuTableau << "|" << couleurCarree512 << couleurBlanc << " " << 512 << "    " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree512 << couleurNoir << " " << 512 << "    " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 1024) {
-                    cout << couleurDuTableau << "|" << couleurCarree1024 << couleurBlanc << " " << 1024 << "   " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree1024 << couleurNoir << " " << 1024 << "   " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 2048) {
-                    cout << couleurDuTableau << "|" << couleurCarree2048 << couleurBlanc << " " << 2048 << "   " << couleurDuFond << couleurNoir;
+                    cout << couleurDuTableau << "|" << couleurCarree2048 << couleurNoir << " " << 2048 << "   " << couleurDuFond << couleurNoir;
                 } else {
                     cout << couleurDuTableau << "|" << couleurCarreePlus << couleurBlanc << " " << p[ligne][col] << "   " << couleurDuFond << couleurNoir;
                 }

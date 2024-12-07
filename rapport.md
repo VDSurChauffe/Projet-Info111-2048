@@ -13,30 +13,28 @@
 *En plus du rapport, la documentation de chaque fonction dans le code devra préciser son auteur et votre degré de confiance dans l'implantation, ainsi que les éléments factuels motivant cette confiance: présence de tests, bogues et limitations connus, etc.*
 
 ### Niveau 0
-- Jeu fonctionnel et complet : *à terminer*
+- Jeu fonctionnel et complet :
 
 Nous avons écrit quelques fonctions en plus de celles déjà présentes dans le sujet, pour permettre d'effectuer des tests automatiques et faciliter les calculs dans certaines fonctionnalités.
 
 Toutes les fonctions sont documentées et ont été testées, presque toutes sont également testées automatiquement par ``tests()``, et certaines sont commentées pour clarifier leur fonctionnement.
 
+Le jeu fonctionne parfaitement, respecte les règles de 2048, execute correctement les instructions de l'utilisateur, ignore les instructions incorrectes
+
 ### Niveau 1
-- Utiliser ncurses : non fait car remplacé par une interface graphique
-- Couleurs : contenues dans l'interface graphique
-- Mouvement avec les flèches seules : fait avec l'UI graphique, et le jeu permet de choisir le mode de contrôles (ZQSD, WASD, ou flèches)
-- Ecraser l'affichage à chaque mouvement : idem
+- Couleurs : contenues dans l'interface graphique et dans l'interface terminal avec les caracteres d'echappement ANSI
+- Mouvement avec les flèches seules : fait avec l'UI graphique, et le jeu permet de choisir le mode de contrôles (ZQSD ou WASD)
+- Ecraser l'affichage à chaque mouvement : marche sur l'interface graphique, sur l'interface terminale avec la bibliothèque ```cstdlib``` et la commande ```clear``` au console.
 - Calcul de score par une fonction : fait, cependant la fonction requiert un argument suppémentaire (une variable dans ``main()``)pour tenir compte du fait que les 4 apparus naturellement rapportent moins
 
 ### Niveau 2
-- Utiliser un Makefile : *à faire*
+- Utiliser un Makefile : Fait
 - Utiliser un gestionnaire de version : fait avec [un repo GitHub](https://github.com/VDSurChauffe/Projet-Info111-2048/)
 
 ### Niveau 3
-- créer une IA : *à décider, à faire*
-- ajouter des variantes :
-      - *à décider*
-      - *variante à choisir*
-      - *à faire*
-- avoir une interface graphique : *à faire*
+- créer une IA : non-traité
+- ajouter des variantes : non-traité
+- avoir une interface graphique : fait
 - en faire une application pour téléphone : non traité
 
 
@@ -51,13 +49,12 @@ Toutes les fonctions sont documentées et ont été testées, presque toutes son
 
 *Décrivez en quelques phrases comment vous vous êtes organisés pour travailler sur le projet: nombre d'heures consacrées au projet, répartition du travail dans le binôme, moyens mis en œuvre pour collaborer, etc. Si vous avez bénéficié d'aide (en dehors de celle de vos enseigants), précisez le.*
 
-Nous avons utilisé GitHub pour échanger nos progrès sur le jeu, avec un repo GitHub géré par Victor.
+Nous avons utilisé GitHub pour échanger nos progrès sur le jeu, avec un repo GitHub géré par Victor. On a utilisé des Pull Requests pour gérer les merges à la branche main, et des branches separées pour nos travaux.
 
-Nous avons chacun travaillé (principalement en collaborant en temps réel) *environ 10 heures **actuellement.***
+Nous avons chacun travaillé (principalement en collaborant en temps réel) *environ 20-30 heures **actuellement.**
 
 ## Prise de recul
 
 *Décrivez en quelques phrases les difficultés rencontrées, ce que vous avez appris à l'occasion du projet, le cas échéant comment vous vous y prendriez si vous aviez à le refaire.*
 
-Nous avons principalement rencontré des problèmes concernant le déplacement du plateau de jeu car il s'agissait de l'algorithme le plus complexe à mettre en oeuvre. ***[A compléter plus tard]***
- ***[A compléter plus tard]***
+La bibliothèque ```ncurses``` ne fonctionnait pas correctement pour Parsa et pas du tout pour Victor, d'où le choix de ne pas l'utiliser et utiliser des caractères d'échappement ANSI et la fonction ```system()``` de la bibliothèque ```cstdlib``` pour les couleurs et le rafraîchissement de l'écran.
