@@ -2,7 +2,8 @@
 #include <string>
 #include <stdexcept>
 #include <iostream>
-#include <SDL2/SDL.h>
+#include <SDL.h>
+#include <SDL_ttf.h>
 #include "modele.hpp"
 
 using namespace std;
@@ -363,39 +364,70 @@ void changeGUIColor(SDL_Renderer *ren, SDL_Color col) {
     SDL_SetRenderDrawColor(ren, col.r, col.g, col.b, col.a);
 }
 
+/** affiche du texte sur la fenêtre de SDL
+ * @param ren le renderer SDL à utiliser
+ * @param col la couleur du texte à afficher
+ * @param font la police à utiliser
+ * @param text le texte à afficher
+ * @param x la position horizontale du texte
+ * @param y la position verticale du texte
+ **/
+void afficheTexte(SDL_Renderer *ren, SDL_Color col, TTF_Font *font, string text, int x, int y) {
+    SDL_Surface *surf = TTF_RenderText_Solid(font, text.c_str(), col);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(ren, surf);
+    int w, h;
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    SDL_Rect pos;
+    pos.x = x; pos.y = y; pos.w = w; pos.h = h;
+    SDL_RenderCopy(ren, texture, NULL, &pos);
+
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surf);
+}
+
 /** dessine l'interface graphique du jeu selon l'état du plateau de jeu
  * @param ren le renderer SDL à utiliser
  * @param colset la palette de couleurs sous la forme d'un tableau de SDL_Color
+ * @param font la police de caractères à utiliser pour le texte
+ * @param font_title la police de caractères à utiliser pour le texte plus grand
  * @param jeu le plateau de jeu actuel
+ * @param score le score actuel du jeu
  **/
-void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, Plateau jeu) {
+void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, TTF_Font *font, TTF_Font *font_title, Plateau jeu, int score) {
     SDL_Color col_bg = colset[0];
     SDL_Color col_board_bg = colset[1];
     SDL_Color col_empty = colset[2];
+    SDL_Color col_text = colset[3];
     SDL_Rect rect_board_bg;
-    rect_board_bg.w = rect_board_bg.h = 420;
-    rect_board_bg.x = 40;
-    rect_board_bg.y = 150;
+    rect_board_bg.w = rect_board_bg.h = 380;
+    rect_board_bg.x = 60;
+    rect_board_bg.y = 190;
     changeGUIColor(ren, col_bg);
     SDL_RenderClear(ren); //On peint l'écran en la couleur d'arrière-plan
+    afficheTexte(ren, col_text, font, "Score", 300, 100);
+    afficheTexte(ren, col_text, font, to_string(score), 300, 120);
+    afficheTexte(ren, col_text, font_title, "2048", 20, 20);
     changeGUIColor(ren, col_board_bg);
     SDL_RenderFillRect(ren, &rect_board_bg);
     SDL_Rect case_rect;
-    case_rect.w = case_rect.h = 80;
+    case_rect.w = case_rect.h = 70;
     int val;
+    string val_str;
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
-            case_rect.x = 60 + 100*j;
-            case_rect.y = 170 + 100*i;
+            case_rect.x = 80 + 90*j;
+            case_rect.y = 210 + 90*i;
             val = jeu[i][j];
+            val_str = to_string(val);
             if (val == 0) {
                 changeGUIColor(ren, col_empty);
             } else if (val > 2048) {
-                changeGUIColor(ren, colset[14]);
+                changeGUIColor(ren, colset[15]);
             } else {
-                changeGUIColor(ren, colset[logCase(val) + 2]);
+                changeGUIColor(ren, colset[logCase(val) + 3]);
             }
             SDL_RenderFillRect(ren, &case_rect);
+            if (val != 0) {afficheTexte(ren, col_text, font, val_str, case_rect.x, case_rect.y);}
         }
     }
 }

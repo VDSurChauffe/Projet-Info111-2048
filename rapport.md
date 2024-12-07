@@ -21,14 +21,14 @@ Toutes les fonctions sont documentées et ont été testées, presque toutes son
 
 ### Niveau 1
 - Utiliser ncurses : non fait car remplacé par une interface graphique
-- Couleurs : contenues dans l'interface graphique
+- Couleurs : contenues dans l'interface graphique, également gérées par Parsa pour l'interface console
 - Mouvement avec les flèches seules : fait avec l'UI graphique, et le jeu permet de choisir le mode de contrôles (ZQSD, WASD, ou flèches)
-- Ecraser l'affichage à chaque mouvement : idem
-- Calcul de score par une fonction : fait, cependant la fonction requiert un argument suppémentaire (une variable dans ``main()``)pour tenir compte du fait que les 4 apparus naturellement rapportent moins
+- Ecraser l'affichage à chaque mouvement pour la console : *à voir*
+- Calcul de score par une fonction : fait, cependant la fonction requiert un argument suppémentaire (une variable dans ``main()``) pour tenir compte du fait que les 4 apparus naturellement rapportent moins
 
 ### Niveau 2
 - Utiliser un Makefile : *à faire*
-- Utiliser un gestionnaire de version : fait avec [un repo GitHub](https://github.com/VDSurChauffe/Projet-Info111-2048/)
+- Utiliser un gestionnaire de version : fait avec [GitHub](https://github.com/VDSurChauffe/Projet-Info111-2048/)
 
 ### Niveau 3
 - créer une IA : *à décider, à faire*

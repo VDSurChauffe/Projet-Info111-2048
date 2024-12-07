@@ -2,7 +2,8 @@
 #include <string>
 #include <stdexcept>
 #include <iostream>
-#include <SDL2/SDL.h>
+#include <SDL.h>
+#include <SDL_ttf.h>
 
 using namespace std;
 using Plateau = vector<vector<int>>;
@@ -113,6 +114,16 @@ int logCase(int n);
  **/
 int scorePlateau(Plateau jeu, int nat);
 
+/** affiche du texte sur la fenêtre de SDL
+ * @param ren le renderer SDL à utiliser
+ * @param col la couleur du texte à afficher
+ * @param font la police à utiliser
+ * @param text le texte à afficher
+ * @param x la position horizontale du texte
+ * @param y la position verticale du texte
+ **/
+void afficheTexte(SDL_Renderer *ren, SDL_Color col, TTF_Font *font, string text, int x, int y);
+
 /** change la couleur active de SDL à une couleur donnée
  * @param ren le renderer SDL à utiliser
  * @param col la couleur à utiliser
@@ -122,9 +133,12 @@ void changeGUIColor(SDL_Renderer *ren, SDL_Color col);
 /** dessine l'interface graphique du jeu selon l'état du plateau de jeu
  * @param ren le renderer SDL à utiliser
  * @param colset la palette de couleurs sous la forme d'un tableau de SDL_Color
+ * @param font la police de caractères à utiliser pour le texte
+ * @param font_title la police de caractères à utiliser pour le texte plus grand
  * @param jeu le plateau de jeu actuel
+ * @param quatres le score actuel du jeu
  **/
-void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, Plateau jeu);
+void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, TTF_Font *font, TTF_Font *font_title, Plateau jeu, int quatres);
 
 /**teste les fonctions de ce fichier pour vérifier qu'elles fonctionnent correctement
  **/
