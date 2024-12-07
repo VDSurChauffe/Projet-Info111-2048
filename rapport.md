@@ -37,8 +37,6 @@ Le jeu fonctionne parfaitement, respecte les règles de 2048, exécute correctem
 
 ## Organisation du travail
 
-*Décrivez en quelques phrases comment vous vous êtes organisés pour travailler sur le projet: nombre d'heures consacrées au projet, répartition du travail dans le binôme, moyens mis en œuvre pour collaborer, etc. Si vous avez bénéficié d'aide (en dehors de celle de vos enseigants), précisez le.*
-
 Nous avons utilisé GitHub pour échanger nos progrès sur le jeu, avec un repo GitHub géré par Victor. Nous avons créé deux branches différentes pour l'interface graphique et l'interface terminal.
 
 Nous avons d'abord travaillé en collaborant (environ 10 heures) en temps réel pour programmer le jeu de base, puis nous avons chacun géré une branche du projet : Parsa a développé l'interface console, et Victor a écrit l'interface graphique. Cela nous a pris chacun environ 10-20 heures de travail individuel.
