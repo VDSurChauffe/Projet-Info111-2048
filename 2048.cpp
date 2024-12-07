@@ -14,33 +14,38 @@ int main() {
 
     string couleurDuFond;
     string couleurPrincipal;
-    string couleurNoir;
-    string couleurErreur;
-    string couleurGagne;
+    string couleurBlanc = "\x1b[38;5;15m";;
+    string couleurErreur = "\x1b[38;5;196m";;
+    string couleurGagne = "\x1b[38;5;190m";
 
     while (true) {
         cout << "Selectionner votre thème de couleur :" << endl;
-        cout << "1. Classique" << endl << "2. Paris-Saclay" << endl << "3. GitHub" << endl << "4. Dracula" << endl << "5. Gruvbox Dark" << endl;
+        cout << "1. Classique" << endl << "2. Paris-Saclay" << endl << "3. GitHub" << endl << "4. Slack" << endl;
 
         string theme;
 
         cin >> theme;
 
         if (theme == "1") {
-            couleurDuFond = "\x1b[48;5;250m";
-            couleurPrincipal = "\x1b[38;5;166m";
-            couleurNoir = "\x1b[38;5;0m";
-            couleurErreur = "\x1b[38;5;160m";
-            couleurGagne = "\x1b[38;5;82m";
+            couleurDuFond = "\x1b[48;5;235m";
+            couleurPrincipal = "\x1b[38;5;214m";
+            choisirTheme(1);
             break;
         } else if (theme == "2") {
-
+            couleurDuFond = "\x1b[48;5;53m";
+            couleurPrincipal = "\x1b[38;5;15m";
+            choisirTheme(2);
+            break;
         } else if (theme == "3") {
-        
+            couleurDuFond = "\x1b[48;5;236m";
+            couleurPrincipal = "\x1b[38;5;15m";
+            choisirTheme(3);
+            break;
         } else if (theme == "4") {
-
-        } else if (theme == "5") {
-
+            couleurDuFond = "\x1b[48;5;235m";
+            couleurPrincipal = "\x1b[38;5;161m";
+            choisirTheme(4);
+            break;
         } else {
             cout << "Choix incorrecte. Veuillez reessayer";
         }
@@ -51,7 +56,7 @@ int main() {
     cout << couleurDuFond << couleurPrincipal;
     cout << "Cela est pour eviter des bouges d'affichage" << endl;
     cout << couleurDuFond << couleurPrincipal << endl;
-    
+
     string commande;
     int score = 0;
     int quatresNaturels = 0;
@@ -72,7 +77,7 @@ int main() {
         cout << couleurPrincipal << "Vous pouvez jouer avec soit les clés WASD, soit les clés ZQSD. Le jeu detectera cela automatiquement" << endl;
         dessine(plateauDuJeu);
 
-        cout << couleurPrincipal << "SCORE : " << couleurNoir << score << endl << couleurNoir;
+        cout << couleurPrincipal << "SCORE : " << couleurBlanc << score << endl << couleurBlanc;
 
         if (estTermine(plateauDuJeu) == true) {
             cout << "Partie terminée ! ";
@@ -91,7 +96,7 @@ int main() {
         plateauPrecedent = plateauDuJeu;
         cout << "Entrez une commande : ";
         cin >> commande;
-        cout << couleurNoir << endl;
+        cout << couleurBlanc << endl;
 
         if (commande == "w" or commande == "W" or commande == "z" or commande == "Z") {
             plateauDuJeu = deplacement(plateauDuJeu, 1);

@@ -7,8 +7,10 @@ using namespace std;
 using Plateau = vector<vector<int>>;
 
 
-// Toutes les fonctions associées aux déplacements ont été écrites par Parsa
-// La plupart des autres fonctions, ainsi que tests(), ont été écrites et maintenues par Victor
+/** fonction choisirTheme (auxiliaire) qui change les couleurs du jeu
+ *  @param theme un entier
+ */
+void choisirTheme(int theme);
 
 /** fonction inverseVector (auxiliaire)
  *  @param inp un vecteur<int>
