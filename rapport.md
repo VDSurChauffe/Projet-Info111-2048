@@ -8,53 +8,49 @@
 
 ## Résumé du travail effectué
 
-*Pour les questions «Aller plus loin» plus ouvertes, décrivez plus en détail ce que vous avez choisi de réaliser. Précisez les difficultés rencontrées, les choix d'implantation que vous avez fait, etc.*
-
-*En plus du rapport, la documentation de chaque fonction dans le code devra préciser son auteur et votre degré de confiance dans l'implantation, ainsi que les éléments factuels motivant cette confiance: présence de tests, bogues et limitations connus, etc.*
-
 ### Niveau 0
 - Jeu fonctionnel et complet :
 
-Nous avons écrit quelques fonctions en plus de celles déjà présentes dans le sujet, pour permettre d'effectuer des tests automatiques et faciliter les calculs dans certaines fonctionnalités.
+Nous avons écrit quelques fonctions en plus de celles déjà présentes dans le sujet, pour permettre d'effectuer des tests automatiques et faciliter les calculs dans certaines fonctionnalités. La version SDL utilise quelques fonctions pour faciliter l'affichage du jeu.
 
 Toutes les fonctions sont documentées et ont été testées, presque toutes sont également testées automatiquement par ``tests()``, et certaines sont commentées pour clarifier leur fonctionnement.
 
-Le jeu fonctionne parfaitement, respecte les règles de 2048, execute correctement les instructions de l'utilisateur, ignore les instructions incorrectes
+Le jeu fonctionne parfaitement, respecte les règles de 2048, exécute correctement les instructions de l'utilisateur, ignore les instructions incorrectes et/ou inconnues.
 
 ### Niveau 1
-- Couleurs : contenues dans l'interface graphique et dans l'interface terminal avec les caracteres d'echappement ANSI
-- Mouvement avec les flèches seules : fait avec l'UI graphique, et le jeu permet de choisir le mode de contrôles (ZQSD ou WASD)
-- Ecraser l'affichage à chaque mouvement : marche sur l'interface graphique, sur l'interface terminale avec la bibliothèque ```cstdlib``` et la commande ```clear``` au console.
-- Calcul de score par une fonction : fait, cependant la fonction requiert un argument suppémentaire (une variable dans ``main()``)pour tenir compte du fait que les 4 apparus naturellement rapportent moins
+- Couleurs : contenues dans l'interface graphique et dans l'interface terminal ; cette dernière utilise pour ce faire des caractères d'échappement ANSI.
+- Mouvement avec les flèches seules : fait avec l'UI graphique, et le jeu permet également WASD/ZQSD (l'interface graphique permet les deux modes en même temps et s'adapte au clavier de l'utilisateur pour gérer WASD/ZQSD, tandis que l'interface console demande de choisir *un* mode parmi les 3)
+- Ecraser l'affichage à chaque mouvement : marche (bien entendu) sur l'interface graphique, fait sur l'interface terminal avec la bibliothèque `cstdlib` et la commande ```clear``` dans la console.
+- Calcul de score par une fonction : fait, cependant la fonction requiert un argument suppémentaire (une variable dans `main()`) pour tenir compte du fait que les 4 apparus naturellement rapportent moins
 
 ### Niveau 2
-- Utiliser un Makefile : Fait
+- Utiliser un Makefile : fait
 - Utiliser un gestionnaire de version : fait avec [un repo GitHub](https://github.com/VDSurChauffe/Projet-Info111-2048/)
 
 ### Niveau 3
-- créer une IA : non-traité
-- ajouter des variantes : non-traité
-- avoir une interface graphique : fait
+- créer une IA : non traité *(?)*
+- ajouter des variantes : non traité
+- avoir une interface graphique :
+
+    Fait par Victor en utilisant la bibliothèque SDL. La boucle du jeu reste intacte *modulo* quelques changements pour l'adapter au mode de contrôles légèrement différent ; tout l'affichage est géré par une fonction dans `modele.cpp` ; on utilise également l'extension `SDL_ttf` de la bibliothèque SDL pour pouvoir écrire du texte plus aisément.
 - en faire une application pour téléphone : non traité
-
-
-## Démonstration
-
-*Soutenez ce que vous affirmez dans la section précédente au moyen de quelques exemples **bien choisis**. Vous pouvez par exemple compiler et lancer certains de vos programmes, lancer des tests, etc.*
-
-*Ne gardez que des exemples pertinents qui mettent en valeur votre travail. Inutile de perdre du temps sur le premier programme si vous avez fait les suivants plus compliqués; l'auditeur se doutera bien que vous avez réussi à le faire.*
-
 
 ## Organisation du travail
 
 *Décrivez en quelques phrases comment vous vous êtes organisés pour travailler sur le projet: nombre d'heures consacrées au projet, répartition du travail dans le binôme, moyens mis en œuvre pour collaborer, etc. Si vous avez bénéficié d'aide (en dehors de celle de vos enseigants), précisez le.*
 
-Nous avons utilisé GitHub pour échanger nos progrès sur le jeu, avec un repo GitHub géré par Victor. On a utilisé des Pull Requests pour gérer les merges à la branche main, et des branches separées pour nos travaux.
+Nous avons utilisé GitHub pour échanger nos progrès sur le jeu, avec un repo GitHub géré par Victor. Nous avons créé deux branches différentes pour l'interface graphique et l'interface terminal.
 
-Nous avons chacun travaillé (principalement en collaborant en temps réel) *environ 20-30 heures **actuellement.**
+Nous avons d'abord travaillé en collaborant (environ 10 heures) en temps réel pour programmer le jeu de base, puis nous avons chacun géré une branche du projet : Parsa a développé l'interface console, et Victor a écrit l'interface graphique. Cela nous a pris chacun environ 10-20 heures de travail individuel.
 
 ## Prise de recul
 
-*Décrivez en quelques phrases les difficultés rencontrées, ce que vous avez appris à l'occasion du projet, le cas échéant comment vous vous y prendriez si vous aviez à le refaire.*
+Nous avons rencontré quelques problèmes lors de la réalisation de ce projet.
 
-La bibliothèque ```ncurses``` ne fonctionnait pas correctement pour Parsa et pas du tout pour Victor, d'où le choix de ne pas l'utiliser et utiliser des caractères d'échappement ANSI et la fonction ```system()``` de la bibliothèque ```cstdlib``` pour les couleurs et le rafraîchissement de l'écran.
+- Premièrement, les fonctions permettant de déplacer le plateau de jeu ont été difficiles à implanter car l'algorithme nécessaire est le plus complexe du projet.
+- La bibliothèque `ncurses` ne fonctionnait pas correctement pour Parsa et pas du tout pour Victor, d'où le choix de ne pas l'utiliser et utiliser des caractères d'échappement ANSI et la fonction `system()` de la bibliothèque `cstdlib` pour les couleurs et le rafraîchissement de l'écran.
+- La bibliothèque SDL a également posé des problèmes initialement car la procédure à suivre pour l'installer est assez complexe, et la compilation séparée requiert de nombreuses options de compilation (en raison de l'usage de deux bibliothèques) qui ont complexifié l'écriture du Makefile.
+
+*TODO: que nous a appris ce projet ?*
+
+"C++ est un très bon langage, très plaisant, tant qu'il ne s'agit pas de compiler des fichiers" -Victor
