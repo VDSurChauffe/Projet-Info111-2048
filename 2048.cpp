@@ -50,12 +50,6 @@ int main(int argc, char *argv[]) {
     int max_score = 0;
     vector<int> arr_frames = {0, 0, 0, 0};
     Plateau plateauDuJeu = plateauInitial();
-    plateauDuJeu = {
-        {4096, 4, 2, 8},
-        {4, 2, 8, 16},
-        {16, 32, 64, 128},
-        {256, 512, 1024, 2048}
-    };
     Plateau plateauPrecedent = plateauVide();
     quatresNaturels = scorePlateau(plateauDuJeu, quatresNaturels) / 4;
     //on met à jour la variable des 4 pour éviter d'avoir 4-8 points en trop si le plateau de départ contient des 4
