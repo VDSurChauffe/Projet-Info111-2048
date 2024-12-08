@@ -114,6 +114,16 @@ int logCase(int n);
  **/
 int scorePlateau(Plateau jeu, int nat);
 
+/**détecte si un point se trouve dans un rectangle donné
+ * @param x la position horizontale du point
+ * @param y la position verticale du point
+ * @param x_box la position horizontale du coin supérieur gauche du rectangle
+ * @param y_box la position verticale du coin supérieur gauche du rectangle
+ * @param w la longueur du rectange
+ * @param h la hauteur du rectangle
+ **/
+bool collision(int x, int y, int x_box, int y_box, int w, int h);
+
 /** affiche du texte sur la fenêtre de SDL
  * @param ren le renderer SDL à utiliser
  * @param col la couleur du texte à afficher
@@ -137,8 +147,9 @@ void changeGUIColor(SDL_Renderer *ren, SDL_Color col);
  * @param font_title la police de caractères à utiliser pour le texte plus grand
  * @param jeu le plateau de jeu actuel
  * @param quatres le score actuel du jeu
+ * @param max_score le record de score atteint
  **/
-void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, TTF_Font *font, TTF_Font *font_title, Plateau jeu, int quatres);
+void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, TTF_Font *font, TTF_Font *font_title, Plateau jeu, int score, int max_score);
 
 /**teste les fonctions de ce fichier pour vérifier qu'elles fonctionnent correctement
  **/

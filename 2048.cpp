@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
         cout << "Renderer init failed: " << SDL_GetError();
         return 1;
     }
+    SDL_SetRenderDrawBlendMode(ren, SDL_BLENDMODE_BLEND);
     SDL_Event event;
     bool win_running = true;
     if (TTF_Init() != 0) {
@@ -46,12 +47,21 @@ int main(int argc, char *argv[]) {
     int quatresNaturels = 0;
     int tirage;
     int score;
+    int max_score = 0;
     vector<int> arr_frames = {0, 0, 0, 0};
     Plateau plateauDuJeu = plateauInitial();
+    plateauDuJeu = {
+        {4096, 4, 2, 8},
+        {4, 2, 8, 16},
+        {16, 32, 64, 128},
+        {256, 512, 1024, 2048}
+    };
     Plateau plateauPrecedent = plateauVide();
     quatresNaturels = scorePlateau(plateauDuJeu, quatresNaturels) / 4;
     //on met à jour la variable des 4 pour éviter d'avoir 4-8 points en trop si le plateau de départ contient des 4
     const Uint8* keyboard;
+    int mouse_x = 0, mouse_y = 0;
+    bool restart_fait = false;
 
     const int frame_length = 10;
     int frameStart, frameTime;
@@ -61,6 +71,7 @@ int main(int argc, char *argv[]) {
         {127, 127, 127, 255}, //Couleur du plateau
         {191, 191, 191, 255}, //Couleur des cases vides
         {63, 63, 63, 255}, //Couleur du texte
+        {255, 255, 255, 127}, //Couleur de superposition pour les parties perdues
         {255, 255, 255, 255}, //Couleurs de 2 à 2048
         {255, 255, 191, 255},
         {255, 191, 127, 255},
@@ -81,6 +92,23 @@ int main(int argc, char *argv[]) {
         if (SDL_PollEvent(&event) != 0) {
             if (event.type == SDL_QUIT) {
                 win_running = false;
+            }
+            if (event.type == SDL_MOUSEMOTION) {
+                mouse_x = event.motion.x;
+                mouse_y = event.motion.y;
+            }
+            if (event.type == SDL_MOUSEBUTTONDOWN) {
+                if (collision(mouse_x, mouse_y, 55, 120, 135, 35) and not restart_fait) {
+                    restart_fait = true;
+                    plateauDuJeu = plateauInitial();
+                    plateauPrecedent = plateauVide();
+                    score = scorePlateau(plateauDuJeu, 0);
+                    quatresNaturels = score / 4;
+                    score = 0;
+                }
+            }
+            if (event.type == SDL_MOUSEBUTTONUP) {
+                restart_fait = false;
             }
         }
 
@@ -114,18 +142,7 @@ int main(int argc, char *argv[]) {
                 arr_frames[3] = 50;
             }
         } else {arr_frames[3] = 0;}
-        if (estTermine(plateauDuJeu) == true) {
-            cout << "Partie terminée ! ";
-            if (estGagnant(plateauDuJeu) == true) {
-                cout << "Vous avez gagné !" << endl << endl << "Sortie du programme. Au revoir !";
-            } else {
-                cout << "Vous avez perdu !" << endl << endl << "Sortie du programme. Au revoir !";
-            }
-            break;
-        } else {
-            if (estGagnant(plateauDuJeu)) {
-                cout << "Vous avez gagné ! Continuez pour atteindre le meilleur score possible !" << endl;
-            }
+        if (not estTermine(plateauDuJeu)) {
             if (plateauPrecedent != plateauDuJeu) {
                 tirage = tireDeuxOuQuatre();
                 if (tirage == 4) {quatresNaturels++;}
@@ -133,14 +150,18 @@ int main(int argc, char *argv[]) {
             }
         }
         score = scorePlateau(plateauDuJeu, quatresNaturels);
+        if (score > max_score) {
+            max_score = score;
+        }
 
         frameTime = SDL_GetTicks() - frameStart;
         if (frameTime < frame_length) {
             SDL_Delay(frame_length - frameTime); //on ajoute un temps d'attente pour limiter le jeu à 100fps
         }
-        dessineGUI(ren, classic_set, font_small, font_title, plateauDuJeu, score);
+        dessineGUI(ren, classic_set, font_small, font_title, plateauDuJeu, score, max_score);
         SDL_RenderPresent(ren);
     }
+
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(window);
     SDL_Quit();

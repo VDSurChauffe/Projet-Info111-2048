@@ -356,6 +356,18 @@ int scorePlateau(Plateau jeu, int nat) {
     return total - 4 * nat;
 }
 
+/**détecte si un point se trouve dans un rectangle donné
+ * @param x la position horizontale du point
+ * @param y la position verticale du point
+ * @param x_box la position horizontale du coin supérieur gauche du rectangle
+ * @param y_box la position verticale du coin supérieur gauche du rectangle
+ * @param w la longueur du rectange
+ * @param h la hauteur du rectangle
+ **/
+bool collision(int x, int y, int x_box, int y_box, int w, int h) {
+    return x_box <= x and x <= x_box + w and y_box <= y and y <= y_box + h;
+}
+
 /** change la couleur active de SDL à une couleur donnée
  * @param ren le renderer SDL à utiliser
  * @param col la couleur à utiliser
@@ -373,7 +385,7 @@ void changeGUIColor(SDL_Renderer *ren, SDL_Color col) {
  * @param y la position verticale du texte
  **/
 void afficheTexte(SDL_Renderer *ren, SDL_Color col, TTF_Font *font, string text, int x, int y) {
-    SDL_Surface *surf = TTF_RenderText_Solid(font, text.c_str(), col);
+    SDL_Surface *surf = TTF_RenderUTF8_Solid(font, text.c_str(), col);
     SDL_Texture *texture = SDL_CreateTextureFromSurface(ren, surf);
     int w, h;
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
@@ -385,30 +397,41 @@ void afficheTexte(SDL_Renderer *ren, SDL_Color col, TTF_Font *font, string text,
     SDL_FreeSurface(surf);
 }
 
-/** dessine l'interface graphique du jeu selon l'état du plateau de jeu
+/** dessine l'interface graphique du jeu selon l'état du jeu
  * @param ren le renderer SDL à utiliser
  * @param colset la palette de couleurs sous la forme d'un tableau de SDL_Color
  * @param font la police de caractères à utiliser pour le texte
  * @param font_title la police de caractères à utiliser pour le texte plus grand
  * @param jeu le plateau de jeu actuel
  * @param score le score actuel du jeu
+ * @param max_score le record de score atteint
  **/
-void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, TTF_Font *font, TTF_Font *font_title, Plateau jeu, int score) {
+void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, TTF_Font *font, TTF_Font *font_title, Plateau jeu, int score, int max_score) {
     SDL_Color col_bg = colset[0];
     SDL_Color col_board_bg = colset[1];
     SDL_Color col_empty = colset[2];
     SDL_Color col_text = colset[3];
+    SDL_Color col_lose = colset[4];
     SDL_Rect rect_board_bg;
     rect_board_bg.w = rect_board_bg.h = 380;
     rect_board_bg.x = 60;
     rect_board_bg.y = 190;
+    SDL_Rect rect_textbox;
     changeGUIColor(ren, col_bg);
     SDL_RenderClear(ren); //On peint l'écran en la couleur d'arrière-plan
-    afficheTexte(ren, col_text, font, "Score", 300, 100);
-    afficheTexte(ren, col_text, font, to_string(score), 300, 120);
-    afficheTexte(ren, col_text, font_title, "2048", 20, 20);
+    
     changeGUIColor(ren, col_board_bg);
     SDL_RenderFillRect(ren, &rect_board_bg);
+    rect_textbox.x = 55; rect_textbox.y = 120; rect_textbox.w = 135; rect_textbox.h = 35;
+    SDL_RenderFillRect(ren, &rect_textbox);
+
+    afficheTexte(ren, col_text, font, "Score", 260, 120);
+    afficheTexte(ren, col_text, font, to_string(score), 260, 140);
+    afficheTexte(ren, col_text, font, "Meilleur", 360, 120);
+    afficheTexte(ren, col_text, font, to_string(max_score), 360, 140);
+    afficheTexte(ren, col_text, font, "Nouvelle partie", 60, 125);
+    afficheTexte(ren, col_text, font_title, "2048", 30, 20);
+
     SDL_Rect case_rect;
     case_rect.w = case_rect.h = 70;
     int val;
@@ -422,13 +445,22 @@ void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, TTF_Font *font, TTF
             if (val == 0) {
                 changeGUIColor(ren, col_empty);
             } else if (val > 2048) {
-                changeGUIColor(ren, colset[15]);
+                changeGUIColor(ren, colset[16]);
             } else {
-                changeGUIColor(ren, colset[logCase(val) + 3]);
+                changeGUIColor(ren, colset[logCase(val) + 4]);
             }
             SDL_RenderFillRect(ren, &case_rect);
             if (val != 0) {afficheTexte(ren, col_text, font, val_str, case_rect.x, case_rect.y);}
         }
+    }
+
+    if (estTermine(jeu)) {
+        changeGUIColor(ren, col_lose);
+        SDL_RenderFillRect(ren, &rect_board_bg);
+        afficheTexte(ren, col_text, font, "Partie terminée !", 180, 367);
+    }
+    if (estGagnant(jeu)) {
+        afficheTexte(ren, col_text, font, "Vous avez gagné !", 170, 570);
     }
 }
 
