@@ -9,7 +9,3 @@ It is a recreation of the famous 2048 game in C++. It can be either played in gr
 - Theme selector (available in Terminal only)
 - Score calculator
 
-## Notes on compiling the GUI version
-*todo after I make it easier -Victor*
-
-
