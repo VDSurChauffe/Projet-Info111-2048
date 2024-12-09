@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <map>
 #include <iostream>
 #include <ctime>
 #include <SDL.h>
@@ -66,47 +67,90 @@ int main(int argc, char *argv[]) {
     const int frame_length = 10;
     int frameStart, frameTime;
 
-    vector<SDL_Color> classic_set = {
-        {255, 255, 255, 255}, //Arrière-plan du jeu
-        {127, 127, 127, 255}, //Couleur du plateau
-        {191, 191, 191, 255}, //Couleur des cases vides
-        {63, 63, 63, 255}, //Couleur du texte
-        {255, 255, 255, 127}, //Couleur de superposition pour les parties perdues
-        {255, 255, 255, 255}, //Couleurs de 2 à 2048
-        {255, 255, 191, 255},
-        {255, 191, 127, 255},
-        {255, 63, 31, 255},
-        {255, 31, 31, 255},
-        {255, 0, 0, 255},
-        {127, 255, 63, 255},
-        {127, 255, 93, 255},
-        {192, 255, 63, 255},
-        {255, 255, 0, 255},
-        {127, 255, 0, 255},
-        {0, 0, 0, 255} //Couleur choisie au-delà de 2048
-    }, classic_dark_set = {
-        {31, 31, 31, 255},
-        {127, 127, 127, 255},
-        {63, 63, 63, 255},
-        {191, 191, 191, 255},
-        {0, 0, 0, 127},
-        {255, 255, 255, 255},
-        {255, 255, 191, 255},
-        {255, 191, 127, 255},
-        {255, 63, 31, 255},
-        {255, 31, 31, 255},
-        {255, 0, 0, 255},
-        {127, 255, 63, 255},
-        {127, 255, 93, 255},
-        {192, 255, 63, 255},
-        {255, 255, 0, 255},
-        {127, 255, 0, 255},
-        {255, 255, 255, 255}
+    map<string, vector<SDL_Color>> themes = {
+        {"Classique Clair", {
+            {255, 255, 255, 255}, //Arrière-plan du jeu
+            {127, 127, 127, 255}, //Couleur du plateau
+            {191, 191, 191, 255}, //Couleur des cases vides
+            {63, 63, 63, 255}, //Couleur du texte
+            {255, 255, 255, 127}, //Couleur de superposition pour les parties perdues
+            {255, 255, 255, 255}, //Couleurs de 2 à 2048
+            {255, 255, 191, 255},
+            {255, 191, 127, 255},
+            {255, 63, 31, 255},
+            {255, 31, 31, 255},
+            {255, 0, 0, 255},
+            {127, 255, 63, 255},
+            {127, 255, 93, 255},
+            {192, 255, 63, 255},
+            {255, 255, 0, 255},
+            {127, 255, 0, 255},
+            {0, 0, 0, 255} //Couleur choisie au-delà de 2048
+        }},
+        {"Classique Sombre", {
+            {31, 31, 31, 255},
+            {127, 127, 127, 255},
+            {63, 63, 63, 255},
+            {191, 191, 191, 255},
+            {0, 0, 0, 127},
+            {255, 255, 255, 255},
+            {255, 255, 191, 255},
+            {255, 191, 127, 255},
+            {255, 63, 31, 255},
+            {255, 31, 31, 255},
+            {255, 0, 0, 255},
+            {127, 255, 63, 255},
+            {127, 255, 93, 255},
+            {192, 255, 63, 255},
+            {255, 255, 0, 255},
+            {127, 255, 0, 255},
+            {255, 255, 255, 255}
+        }},
+        {"Paris-Saclay", {
+            {191, 0, 127, 255},
+            {191, 191, 191, 191},
+            {255, 63, 191, 255},
+            {255, 191, 255, 255},
+            {255, 0, 127, 127},
+            {255, 255, 255, 255},
+            {255, 191, 223, 255},
+            {255, 191, 184, 255},
+            {255, 160, 156, 255},
+            {255, 127, 63, 255},
+            {255, 0, 63, 255},
+            {220, 208, 255, 255},
+            {220, 208, 255, 255},
+            {191, 161, 140, 255},
+            {193, 163, 144, 255},
+            {188, 127, 121, 255},
+            {0, 128, 128, 255},
+        }},
+        {"GitHub", {
+            {95, 95, 95, 255},
+            {255, 223, 255, 255},
+            {63, 63, 63, 255},
+            {127, 127, 127, 255},
+            {95, 95, 95, 127},
+            {255, 255, 255, 255},
+            {180, 180, 255, 255},
+            {127, 127, 255, 255},
+            {255, 191, 255, 255},
+            {255, 127, 255, 255},
+            {255, 175, 95, 255},
+            {255, 127, 31, 255},
+            {255, 191, 0, 225},
+            {255, 191, 0, 255},
+            {255, 0, 0, 255},
+            {255, 0, 0, 255},
+            {159, 159, 159, 255}
+        }}
     };
-    const int nombre_themes = 2;
+
+    vector<string> noms_themes = {"Classique Clair", "Classique Sombre", "Paris-Saclay", "GitHub"};
+    const int nombre_themes = themes.size();
     int theme_actuel = 0;
-    vector<SDL_Color> colset_actuel = classic_set;
-    string nom_theme = "Classique Clair";
+    string nom_theme = noms_themes[theme_actuel];
+    vector<SDL_Color> colset_actuel = themes[nom_theme];
     bool theme_change = false;
 
     while (win_running) {
@@ -132,8 +176,8 @@ int main(int argc, char *argv[]) {
                 if (collision(mouse_x, mouse_y, 310, 40, 150, 50) and not theme_change) {
                     theme_change = true;
                     theme_actuel = (theme_actuel + 1) % nombre_themes;
-                    if (theme_actuel == 0) {colset_actuel = classic_set; nom_theme = "Classique Clair";}
-                    else if (theme_actuel == 1) {colset_actuel = classic_dark_set; nom_theme = "Classique Sombre";}
+                    nom_theme = noms_themes[theme_actuel];
+                    colset_actuel = themes[nom_theme];
                 }
             }
             if (event.type == SDL_MOUSEBUTTONUP) {
