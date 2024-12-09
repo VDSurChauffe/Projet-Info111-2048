@@ -79,7 +79,7 @@ int main() {
         cout << "*****   *****       *   *****" << endl << endl;
         cout << couleurDuFond << couleurPrincipal << endl;
         cout << "CRÉÉ PAR PARSA FARJAM ET VICTOR DAVIAU EN 2024" << endl << endl;
-        cout << couleurPrincipal << "Vous pouvez jouer avec soit les clés WASD, soit les clés ZQSD. Le jeu detectera cela automatiquement" << endl;
+        cout << couleurPrincipal << "Vous pouvez jouer avec soit les clés WASD, soit les clés ZQSD. Le jeu détectera cela automatiquement. Tapez \"r\" pour recommencer la partie" << endl;
         dessine(plateauDuJeu);
 
         cout << couleurPrincipal << "SCORE : " << couleurBlanc << score << endl << couleurBlanc;
@@ -88,11 +88,38 @@ int main() {
         if (estTermine(plateauDuJeu) == true) {
             cout << "Partie terminée ! ";
             if (estGagnant(plateauDuJeu) == true) {
-                cout << couleurGagne << "Vous avez gagné !" << endl << endl << "Sortie du programme. Au revoir !" << endl;
+                cout << couleurGagne << "Vous avez gagné !" << endl << endl << couleurBlanc << "Voulez-vous recommencer ? Tapez la commande \"o\" pour oui et n'importe quel autre commande pour non : ";
+
+                string recommenceOuNon;
+                cin >> recommenceOuNon;
+
+                if (recommenceOuNon == "O" or recommenceOuNon == "o") {
+                    plateauDuJeu = plateauInitial();
+                    plateauPrecedent = plateauVide();
+                    score = 0;
+                    continue;
+                } else {
+                    cout << "Au Revoir !";
+                    break;
+                }
+
+                
             } else {
-                cout << couleurErreur << "Vous avez perdu !" << endl << endl << "Sortie du programme. Au revoir !" << endl;
+                cout << couleurErreur << "Vous avez perdu !" << endl << endl << couleurBlanc << "Voulez-vous recommencer ? Tapez la commande \"o\" pour oui et n'importe quelle autre commande pour non : ";
+
+                string recommenceOuNon;
+                cin >> recommenceOuNon;
+
+                if (recommenceOuNon == "O" or recommenceOuNon == "o") {
+                    plateauDuJeu = plateauInitial();
+                    plateauPrecedent = plateauVide();
+                    score = 0;
+                    continue;
+                } else {
+                    cout << "Au Revoir !";
+                    break;
+                }
             }
-            break;
         } else {
             if (estGagnant(plateauDuJeu)) {
                 cout << "Vous avez gagné ! Continuez pour atteindre le meilleur score possible !" << endl << endl;
@@ -118,6 +145,11 @@ int main() {
         } else if (commande == "d" or commande == "D") {
             plateauDuJeu = deplacement(plateauDuJeu, 2);
             score = scorePlateau(plateauDuJeu, quatresNaturels);
+        } else if (commande == "r" or commande == "R") {
+            plateauDuJeu = plateauInitial();
+            plateauPrecedent = plateauVide();
+            score = 0;
+            continue;
         }
 
         // AJOUTE UNE CASE AU PLATEAU SI LE PLATEAU A CHANGE DEPUIS LA DERNIERE FOIS
