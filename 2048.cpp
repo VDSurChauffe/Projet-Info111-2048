@@ -52,6 +52,12 @@ int main(int argc, char *argv[]) {
     Plateau plateauDuJeu = plateauInitial();
     Plateau plateauPrecedent = plateauVide();
     quatresNaturels = scorePlateau(plateauDuJeu, quatresNaturels) / 4;
+    plateauDuJeu = {
+        {0, 2, 4, 8},
+        {16, 32, 64, 128},
+        {256, 512, 1024, 2048},
+        {4096, 8192, 16384, 32768},
+    };
     //on met à jour la variable des 4 pour éviter d'avoir 4-8 points en trop si le plateau de départ contient des 4
     const Uint8* keyboard;
     int mouse_x = 0, mouse_y = 0;
@@ -78,7 +84,30 @@ int main(int argc, char *argv[]) {
         {255, 255, 0, 255},
         {127, 255, 0, 255},
         {0, 0, 0, 255} //Couleur choisie au-delà de 2048
+    }, classic_dark_set = {
+        {31, 31, 31, 255},
+        {127, 127, 127, 255},
+        {63, 63, 63, 255},
+        {191, 191, 191, 255},
+        {0, 0, 0, 127},
+        {255, 255, 255, 255},
+        {255, 255, 191, 255},
+        {255, 191, 127, 255},
+        {255, 63, 31, 255},
+        {255, 31, 31, 255},
+        {255, 0, 0, 255},
+        {127, 255, 63, 255},
+        {127, 255, 93, 255},
+        {192, 255, 63, 255},
+        {255, 255, 0, 255},
+        {127, 255, 0, 255},
+        {255, 255, 255, 255}
     };
+    const int nombre_themes = 2;
+    int theme_actuel = 0;
+    vector<SDL_Color> colset_actuel = classic_set;
+    string nom_theme = "Classique Clair";
+    bool theme_change = false;
 
     while (win_running) {
         frameStart = SDL_GetTicks();
@@ -100,9 +129,16 @@ int main(int argc, char *argv[]) {
                     quatresNaturels = score / 4;
                     score = 0;
                 }
+                if (collision(mouse_x, mouse_y, 310, 40, 150, 50) and not theme_change) {
+                    theme_change = true;
+                    theme_actuel = (theme_actuel + 1) % nombre_themes;
+                    if (theme_actuel == 0) {colset_actuel = classic_set; nom_theme = "Classique Clair";}
+                    else if (theme_actuel == 1) {colset_actuel = classic_dark_set; nom_theme = "Classique Sombre";}
+                }
             }
             if (event.type == SDL_MOUSEBUTTONUP) {
                 restart_fait = false;
+                theme_change = false;
             }
         }
 
@@ -152,7 +188,7 @@ int main(int argc, char *argv[]) {
         if (frameTime < frame_length) {
             SDL_Delay(frame_length - frameTime); //on ajoute un temps d'attente pour limiter le jeu à 100fps
         }
-        dessineGUI(ren, classic_set, font_small, font_title, plateauDuJeu, score, max_score);
+        dessineGUI(ren, colset_actuel, nom_theme, font_small, font_title, plateauDuJeu, score, max_score);
         SDL_RenderPresent(ren);
     }
 

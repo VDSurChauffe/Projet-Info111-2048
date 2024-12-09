@@ -368,6 +368,22 @@ bool collision(int x, int y, int x_box, int y_box, int w, int h) {
     return x_box <= x and x <= x_box + w and y_box <= y and y <= y_box + h;
 }
 
+/**calcule les dimensions en pixels d'un texte
+ * @param ren le renderer SDL à utiliser
+ * @param font la police à utiliser
+ * @param text le texte dont on cherche les dimensions
+ **/
+int lenTexte(SDL_Renderer *ren, TTF_Font *font, string text) {
+    SDL_Color placeholder = {0, 0, 0, 255};
+    SDL_Surface *surf = TTF_RenderUTF8_Solid(font, text.c_str(), placeholder);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(ren, surf);
+    int w, h;
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surf);
+    return w;
+}
+
 /** change la couleur active de SDL à une couleur donnée
  * @param ren le renderer SDL à utiliser
  * @param col la couleur à utiliser
@@ -400,13 +416,14 @@ void afficheTexte(SDL_Renderer *ren, SDL_Color col, TTF_Font *font, string text,
 /** dessine l'interface graphique du jeu selon l'état du jeu
  * @param ren le renderer SDL à utiliser
  * @param colset la palette de couleurs sous la forme d'un tableau de SDL_Color
+ * @param theme le nom du thème à utiliser
  * @param font la police de caractères à utiliser pour le texte
  * @param font_title la police de caractères à utiliser pour le texte plus grand
  * @param jeu le plateau de jeu actuel
  * @param score le score actuel du jeu
  * @param max_score le record de score atteint
  **/
-void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, TTF_Font *font, TTF_Font *font_title, Plateau jeu, int score, int max_score) {
+void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, string theme, TTF_Font *font, TTF_Font *font_title, Plateau jeu, int score, int max_score) {
     SDL_Color col_bg = colset[0];
     SDL_Color col_board_bg = colset[1];
     SDL_Color col_empty = colset[2];
@@ -424,12 +441,16 @@ void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, TTF_Font *font, TTF
     SDL_RenderFillRect(ren, &rect_board_bg);
     rect_textbox.x = 55; rect_textbox.y = 120; rect_textbox.w = 135; rect_textbox.h = 35;
     SDL_RenderFillRect(ren, &rect_textbox);
+    rect_textbox.x = 310; rect_textbox.y = 40; rect_textbox.w = 150; rect_textbox.h = 50;
+    SDL_RenderFillRect(ren, &rect_textbox);
 
     afficheTexte(ren, col_text, font, "Score", 260, 120);
     afficheTexte(ren, col_text, font, to_string(score), 260, 140);
     afficheTexte(ren, col_text, font, "Meilleur", 360, 120);
     afficheTexte(ren, col_text, font, to_string(max_score), 360, 140);
     afficheTexte(ren, col_text, font, "Nouvelle partie", 60, 125);
+    afficheTexte(ren, col_text, font, "Thème :", 350, 40);
+    afficheTexte(ren, col_text, font, theme, 385 - lenTexte(ren, font, theme)/2, 60);
     afficheTexte(ren, col_text, font_title, "2048", 30, 20);
 
     SDL_Rect case_rect;
@@ -450,7 +471,8 @@ void dessineGUI(SDL_Renderer *ren, vector<SDL_Color> colset, TTF_Font *font, TTF
                 changeGUIColor(ren, colset[logCase(val) + 4]);
             }
             SDL_RenderFillRect(ren, &case_rect);
-            if (val != 0) {afficheTexte(ren, col_text, font, val_str, case_rect.x, case_rect.y);}
+            if (val != 0) {afficheTexte(ren, col_text, font, val_str,
+            case_rect.x + 34 - lenTexte(ren, font, val_str)/2, case_rect.y+23);}
         }
     }
 
@@ -573,13 +595,4 @@ void tests() {
     if (estGagnant(vide) or not estGagnant(gagnant)) {
         throw runtime_error("Erreur dans les tests : estGagnant() doit identifier correctement les plateaux gagnants");
     }
-
-    //dessine & ajouteCase
-    dessine(jeuTest);
-    jeuTest[0][3] = 16;
-    dessine(jeuTest);
-    jeuTest[3][3] = 1024;
-    dessine(jeuTest);
-    dessine(ajouteCase(jeuTest, tireDeuxOuQuatre()));
-    dessine(ajouteCase(plateauInitial(), tireDeuxOuQuatre()));
 }
