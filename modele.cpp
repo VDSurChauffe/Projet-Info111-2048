@@ -380,8 +380,12 @@ void dessine(Plateau p) {
                     cout << couleurDuTableau << "|" << couleurCarree1024 << couleurNoir << " " << 1024 << "   " << couleurDuFond << couleurNoir;
                 }else if (p[ligne][col] == 2048) {
                     cout << couleurDuTableau << "|" << couleurCarree2048 << couleurNoir << " " << 2048 << "   " << couleurDuFond << couleurNoir;
-                } else {
+                } else if (p[ligne][col] <= 9999) {
                     cout << couleurDuTableau << "|" << couleurCarreePlus << couleurBlanc << " " << p[ligne][col] << "   " << couleurDuFond << couleurNoir;
+                } else if (p[ligne][col] <= 99999) {
+                    cout << couleurDuTableau << "|" << couleurCarreePlus << couleurBlanc << " " << p[ligne][col] << "  " << couleurDuFond << couleurNoir;
+                } else {
+                    cout << couleurDuTableau << "|" << couleurCarreePlus << couleurBlanc << " " << p[ligne][col] << " " << couleurDuFond << couleurNoir;
                 }
             }
         }
