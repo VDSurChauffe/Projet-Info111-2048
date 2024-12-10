@@ -64,6 +64,6 @@ Nous avons rencontré quelques problèmes lors de la réalisation de ce projet :
 - La bibliothèque `ncurses` ne fonctionnait pas correctement pour Parsa et pas du tout pour Victor, d'où le choix de ne pas l'utiliser et utiliser des caractères d'échappement ANSI et la fonction `system()` de la bibliothèque `cstdlib` pour les couleurs et le rafraîchissement de l'écran.
 - La bibliothèque SDL a également posé des problèmes initialement car la procédure à suivre pour l'installer est assez complexe, et la compilation séparée requiert de nombreuses options de compilation (en raison de l'usage de deux bibliothèques) qui ont complexifié l'écriture du Makefile.
 
-Ce projet nous a permis d'explorer quelques bibliothèques (notamment SDL) et nous a rappelé qu'il est important d'écrire du code flexible, sous peine de devoir tout réécrire (ou que le code devienne illisible) lorsque l'on veut y ajouter des fonctionnalités (ex. la fonction `dessineGUI` qui prend ***8*** arguments).
+Ce projet nous a permis d'explorer quelques bibliothèques (notamment SDL) et nous a rappelé qu'il est important d'écrire du code flexible, sous peine de devoir tout réécrire (ou que le code devienne illisible) lorsque l'on veut y ajouter des fonctionnalités (ex. la fonction `dessineGUI` qui prend ***8*** arguments, ou la chaîne de ~15 `if`/`else` dans l'affichage de l'interface console).
 
 "C++ est un très bon langage, très plaisant, tant qu'il ne s'agit pas de compiler des fichiers" -Victor
