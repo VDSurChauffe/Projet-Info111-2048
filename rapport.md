@@ -35,7 +35,7 @@ Le score est calculé par une fonction qui prend en argument le plateau du jeu e
 
     Fait par Victor en utilisant la bibliothèque SDL. La boucle du jeu reste intacte *modulo* quelques changements pour l'adapter au mode de contrôles légèrement différent ; tout l'affichage est géré par une fonction dans `modele.cpp` ; on utilise également l'extension `SDL_ttf` de la bibliothèque SDL pour pouvoir écrire du texte plus aisément.
 - en faire une application pour téléphone : non traité
-- Le jeu présente un sélecteur de thème : 
+- Le jeu présente un sélecteur de thème (ie. palette de couleurs) : l'interface console demande de choisir définitivement un thème au début de l'exécution, l'interface graphique commence par défaut en thème classique mais permet de changer le thème (de manière cyclique). Il a 4 thèmes : classique, Slack, Paris-Saclay et GitHub ; l'interface graphique présente en plus un thème "Classique Clair" qui est le thème par défaut.
 
 ## Organisation du travail
 
