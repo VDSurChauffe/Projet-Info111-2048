@@ -84,11 +84,6 @@ Plateau deplacement(Plateau plateau, int direction);
  */
 Plateau ajouteCase(Plateau p, int k);
 
-/** affiche un plateau
- * @param p le plateau
- **/
-void dessine(Plateau p);
-
 /** permet de savoir si une partie est terminée
  *  @param plateau un plateau
  *  @return true si le plateau est terminé, false sinon

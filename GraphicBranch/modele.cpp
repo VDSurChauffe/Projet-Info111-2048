@@ -225,9 +225,9 @@ Plateau deplacementDroite(Plateau plateau) {
  *  @return le plateau une fois déplacé vers le haut
  **/
 Plateau deplacementHaut(Plateau plateau) {
-    Plateau plateauTournee = tourneGauche(plateau);
-    plateauTournee = deplacementGauche(plateauTournee);
-    return tourneDroite(plateauTournee);
+    Plateau plateauTourne = tourneGauche(plateau);
+    plateauTourne = deplacementGauche(plateauTourne);
+    return tourneDroite(plateauTourne);
 }
 
 /** déplace les tuiles d'un plateau vers le bas et les combine si possible
@@ -235,9 +235,9 @@ Plateau deplacementHaut(Plateau plateau) {
  *  @return le plateau une fois déplacé vers le bas
  **/
 Plateau deplacementBas(Plateau plateau) {
-    Plateau plateauTournee = tourneGauche(plateau);
-    plateauTournee = deplacementDroite(plateauTournee);
-    return tourneDroite(plateauTournee);
+    Plateau plateauTourne = tourneGauche(plateau);
+    plateauTourne = deplacementDroite(plateauTourne);
+    return tourneDroite(plateauTourne);
 }
 
 /** déplace les tuiles d'un plateau dans la direction donnée et génère une nouvelle tuile si le déplacement est valide
@@ -272,29 +272,6 @@ Plateau ajouteCase(Plateau p, int k) {
     }
     p[caseRandom / 4][caseRandom % 4] = k;
     return p;
-}
-
-/** affiche un plateau
- * @param p le plateau
- **/
-void dessine(Plateau p) {
-    cout << "*************************************" << endl;
-    for (int ligne = 0;  ligne < 4; ligne++) {
-        for (int col = 0; col < 4; col++) {
-            cout << "*  " << p[ligne][col];
-            if (p[ligne][col] <= 8) {
-                cout << "     ";
-            } else if (p[ligne][col] <= 64 ) {
-                cout << "    ";
-            } else if (p[ligne][col] <= 512) {
-                cout << "   ";
-            } else {
-                cout << "  ";
-            }
-        }
-        cout << '*' << endl;
-        cout << "*************************************" << endl;
-    }
 }
 
 /** permet de savoir si une partie est terminée
@@ -368,17 +345,20 @@ bool collision(int x, int y, int x_box, int y_box, int w, int h) {
     return x_box <= x and x <= x_box + w and y_box <= y and y <= y_box + h;
 }
 
-/**calcule les dimensions en pixels d'un texte
+/**calcule la dimension x d'un texte
  * @param ren le renderer SDL à utiliser
  * @param font la police à utiliser
- * @param text le texte dont on cherche les dimensions
+ * @param text le texte dont on cherche la dimension horizontale
  **/
 int lenTexte(SDL_Renderer *ren, TTF_Font *font, string text) {
     SDL_Color placeholder = {0, 0, 0, 255};
     SDL_Surface *surf = TTF_RenderUTF8_Solid(font, text.c_str(), placeholder);
     SDL_Texture *texture = SDL_CreateTextureFromSurface(ren, surf);
     int w, h;
+    //on place dans w et h les dimensions de la texture SDL obtenue
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+
+    //on libère la mémoire et on retourne
     SDL_DestroyTexture(texture);
     SDL_FreeSurface(surf);
     return w;
@@ -403,6 +383,8 @@ void changeGUIColor(SDL_Renderer *ren, SDL_Color col) {
 void afficheTexte(SDL_Renderer *ren, SDL_Color col, TTF_Font *font, string text, int x, int y) {
     SDL_Surface *surf = TTF_RenderUTF8_Solid(font, text.c_str(), col);
     SDL_Texture *texture = SDL_CreateTextureFromSurface(ren, surf);
+
+    //on doit connaître les dimensions du texte pour pouvoir l'afficher correctement
     int w, h;
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     SDL_Rect pos;

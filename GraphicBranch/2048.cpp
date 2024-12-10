@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     
     //Teste automatiquement les fonctions de modele.hpp
     //Pour ce faire il suffit simplement de décommenter la ligne ci-dessous
-    //tests();
+    tests();
 
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         cout << "SDL init failed: " << SDL_GetError();
@@ -53,12 +53,14 @@ int main(int argc, char *argv[]) {
     Plateau plateauDuJeu = plateauInitial();
     Plateau plateauPrecedent = plateauVide();
     quatresNaturels = scorePlateau(plateauDuJeu, quatresNaturels) / 4;
+    /** Ceci sert à tester le bon fonctionnement d'un thème entier rapidement
     plateauDuJeu = {
         {0, 2, 4, 8},
         {16, 32, 64, 128},
         {256, 512, 1024, 2048},
         {4096, 8192, 16384, 32768},
     };
+    */
     //on met à jour la variable des 4 pour éviter d'avoir 4-8 points en trop si le plateau de départ contient des 4
     const Uint8* keyboard;
     int mouse_x = 0, mouse_y = 0;
@@ -147,7 +149,7 @@ int main(int argc, char *argv[]) {
         }},
         {"Slack", {
             {95, 95, 95, 255},
-            {255, 127, 191, 255},
+            {255, 207, 231, 255},
             {63, 63, 63, 255},
             {191, 191, 191, 255},
             {95, 95, 95, 127},
