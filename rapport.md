@@ -21,6 +21,7 @@ Le jeu fonctionne parfaitement, respecte les règles de 2048, exécute correctem
 - Couleurs : contenues dans l'interface graphique et dans l'interface terminal ; cette dernière utilise pour ce faire des caractères d'échappement ANSI.
 - Mouvement avec les flèches seules : fait avec l'UI graphique, et le jeu permet également WASD/ZQSD (les deux interfaces permettent les deux modes en même temps et s'adaptent au clavier de l'utilisateur pour gérer WASD/ZQSD)
 - Ecraser l'affichage à chaque mouvement : marche (bien entendu) sur l'interface graphique, fait sur l'interface terminal avec la bibliothèque `cstdlib` et la commande ```clear``` dans la console. 
+
 Le score est calculé par une fonction qui prend en argument le plateau du jeu et une variable supplémentaire, nécessaire pour tenir compte du fait que les 4 apparus naturellement rapportent moins de points.
 
 ### Niveau 2
