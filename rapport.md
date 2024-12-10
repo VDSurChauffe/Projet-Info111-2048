@@ -45,7 +45,7 @@ Nous avons d'abord travaillé en collaborant (environ 2 heures) en temps réel, 
 
 Parsa a écrit :
 - Toutes les fonctions de deplacement
-- Les fonctions auxilières `choisirTheme`, `inverseVector`, `tourneGauche`, `tourneDroite`
+- Les fonctions auxiliaires `choisirTheme`, `inverseVector`, `tourneGauche`, `tourneDroite`
 - Boucle principale du jeu
 - Fonction affichage (interface terminal)
 - Interface console avec les couleurs 
